@@ -107,6 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
+      ),
+      drawer: Drawer(
+        child: // Populate the Drawer in the next step.
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
