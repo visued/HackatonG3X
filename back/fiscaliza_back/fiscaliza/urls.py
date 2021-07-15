@@ -22,6 +22,8 @@ from api.views import OcorrenciaViewSet, LocationList
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.conf.urls.static import static
+from django.conf import settings
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,6 +39,7 @@ schema_view = get_schema_view(
 )
 router = routers.DefaultRouter()
 router.register(r'ocorrencia', OcorrenciaViewSet)
+router.register(r'geojson', LocationList)
 app_name = 'api'
 urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
@@ -46,4 +49,4 @@ urlpatterns = [
     url(r'^', include(('api.urls'))),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

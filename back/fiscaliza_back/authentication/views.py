@@ -36,7 +36,7 @@ class RegisterView(generics.GenericAPIView):
         current_site = get_current_site(request).domain
         relativeLink = reverse('email-verify')        
         absurl = 'http://'+current_site+relativeLink+"?token="+str(token)
-        email_body = 'Olá, '+ user.username+ ' use o link a seguir para verificar sua conta: \n' + absurl
+        email_body = 'Olá, '+ user.long_name+ ' use o link a seguir para verificar sua conta: \n' + absurl
         data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Verifique seu e-mail'}
         Util.send_email(data)
         return Response(user_data, status=status.HTTP_201_CREATED)
@@ -82,7 +82,7 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             current_site = get_current_site(request=request).domain
             relativeLink = reverse('password-reset', kwargs={'uidb64': uidb64, 'token': token})        
             absurl = 'http://'+current_site + relativeLink
-            email_body = 'Olá,\n'+ user.username+ ' use o link a seguir para resetar sua senha: \n' + absurl
+            email_body = 'Olá,\n'+ user.long_name+ ' use o link a seguir para resetar sua senha: \n' + absurl
             data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Resetar sua senha'}
 
             Util.send_email(data)

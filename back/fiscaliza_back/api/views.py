@@ -28,7 +28,7 @@ class OcorrenciasByUserList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated, IsOwner,)
     
     def get(self, request, email):
-        if email != None:
+        if email is not None:
             user = User.objects.get(email=email)
             ocorrencia = Ocorrencia.objects.get(user=user)
             serializer = OcorrenciasByUserSerializer(ocorrencia)

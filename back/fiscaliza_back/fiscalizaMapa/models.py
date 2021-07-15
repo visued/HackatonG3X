@@ -22,7 +22,7 @@ ANDAMENTO = (
     ('abandono_animais', 'Encaminhamento do AI à CETESB'),
 )
 class Ocorrencia(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     criado = models.DateTimeField(auto_now=True)
     categorias = models.CharField(max_length=255, choices=CATEGORIAS)
     andamento = models.CharField(max_length=255, choices=ANDAMENTO, blank=True) #editavel para o guarda
@@ -38,6 +38,12 @@ class Ocorrencia(models.Model):
     loteamento_proprietario = models.CharField(max_length=240, blank=True)
     loteamento_contato = models.CharField(max_length=240, blank=True)
     numero_auto = models.CharField(max_length=240, blank=True) # editavel para o guarda
+    imagem_1 = models.ImageField(upload_to='media/', max_length=254)
+    imagem_2 = models.ImageField(upload_to='media/', max_length=254, blank=True)
+    imagem_3 = models.ImageField(upload_to='media/', max_length=254, blank=True)
+    imagem_4 = models.ImageField(upload_to='media/', max_length=254, blank=True)
+    imagem_5 = models.ImageField(upload_to='media/', max_length=254, blank=True)
+    imagem_6 = models.ImageField(upload_to='media/', max_length=254, blank=True)
 
 
 

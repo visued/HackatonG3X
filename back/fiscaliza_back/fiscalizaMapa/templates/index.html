@@ -1,29 +1,33 @@
-{% load static %}
-{% load leaflet_tags %}
-
-{% leaflet_js %}
-{% leaflet_css %}
+{% load static %} {% load leaflet_tags %} {% leaflet_js %} {% leaflet_css %}
 <!DOCTYPE html>
 <html lang="pt_Br">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="../../favicon.ico" />
 
     <title>Fiscaliza</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="http://getbootstrap.com/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link
+      href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css"
+      rel="stylesheet"
+    />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--[if lt IE 9
+      ]><script src="../../assets/js/ie8-responsive-file-warning.js"></script
+    ><![endif]-->
     <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -33,216 +37,344 @@
     <![endif]-->
 
     <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+    <link
+      href="http://getbootstrap.com/examples/carousel/carousel.css"
+      rel="stylesheet"
+    />
 
-	<style type="text/css">
-		html, body, #container /*, and all other map parent selectors*/ {
-		  height: 100%;
-		  overflow: hidden;
-		  width: 100%;
-		}
-		#fiscaliza {
-		 width: auto;
-	    height: 1080px;
-	    position: absolute;
-	    top: 0;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-	    margin-top: -20px;
-        border: 2px dashed black;
-		}
-	</style>
-	<script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/leaflet-color-markers.js' %}"></script>
-	<script type="text/javascript" src="{% static 'dist/leaflet.groupedlayercontrol.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'dist/leaflet.groupedlayercontrol.min.js.map' %}"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'dist/leaflet.groupedlayercontrol.min.css' %}">
+    <script src='{% static "js/catiline.js"  %}'></script>
+    <script src='{% static "js/leaflet.shpfile.js"  %}'></script>
+
+    <style type="text/css">
+      html, body, #container /*, and all other map parent selectors*/ {
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+        background-color: #0e0046;
+      }
+      #fiscaliza {
+        width: auto;
+        height: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-top: 100px;
+        border: 2px dashed #0eb028;
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="{% static 'dist/leaflet.ajax.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'js/leaflet-color-markers.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'dist/leaflet.groupedlayercontrol.min.js' %}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{% static 'dist/leaflet.groupedlayercontrol.min.js.map' %}"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'dist/leaflet.groupedlayercontrol.min.css' %}"
+    />
+
+    <script type="text/javascript">
+      function our_layers(map, options) {
+        var geoPointsUrl = "http://127.0.0.1:8000/api/v1/geojson/?format=json";
+        var osm = "http://{s}.tile.openstreetmap.org/{z}{y}{x}.png";
+
+        var greenIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var blueIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var violetIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var yellowIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var redtIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var greytIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        var blackIcon = new L.Icon({
+          iconUrl:
+            "https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png",
+          shadowUrl:
+            "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        });
+
+        fetch(geoPointsUrl, {
+          method: "GET", // or 'PUT'
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer {{user.tokens.access}}",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+			var geoPoints = data.data['type'];
+			console.log(data);
+            var descarte = new L.GeoJSON.AJAX(geoPoints, {				
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "descarte";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, greytIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                layer.setIcon(greytIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            var desmatamento = new L.GeoJSON.AJAX(geoPoints, {
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "desmatamento";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, yellowIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                layer.setIcon(yellowIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            var loteamento_irregular = new L.GeoJSON.AJAX(geoPoints, {
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "loteamento_irregular";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, blackIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                layer.setIcon(blackIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            var uso_area_publica = new L.GeoJSON.AJAX(geoPoints, {
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "uso_area_publica";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, blackIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                layer.setIcon(blackIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            var maltrato_animais = new L.GeoJSON.AJAX(geoPoints, {
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "maltrato_animais";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, blackIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                layer.setIcon(blackIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            var abandono_animais = new L.GeoJSON.AJAX(geoPoints, {
+              filter: function (feature, layer) {
+                return feature.properties.categorias == "abandono_animais";
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, blackIcon);
+              },
+              onEachFeature: function (feature, layer) {
+                L.control
+                  .groupedLayers(null, groupedOverlays, { collapsed: false })
+                  .addTo(map);
+                layer.setIcon(blackIcon);
+                layer.bindPopup(
+                  feature.properties.descricao.toString()
+                );
+              },
+            });
+
+            descarte.addTo(map);
+            desmatamento.addTo(map);
+            loteamento_irregular.addTo(map);
+            uso_area_publica.addTo(map);
+            maltrato_animais.addTo(map);
+            abandono_animais.addTo(map);
+
+            var baseLayers = {
+              OSM: osm,
+            };
+
+            var groupedOverlays = {
+              'Ocorrências': {
+                "Descarte irregular de residuos": descarte,
+                'Desmatamento': desmatamento,
+                "Loteamento Irregular": loteamento_irregular,
+                "Area Pública": uso_area_publica,
+                "Maltrato de Animais": maltrato_animais,
+                "Abandono de Animais": abandono_animais,
+              },
+            };
+            L.control
+              .groupedLayers(null, groupedOverlays, { collapsed: false })
+              .addTo(map);
+
+			var markers = new L.GeoJSON.AJAX(geoPoints);
+          	markers.addTo(map);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
 
 
-	<script type="text/javascript">
-	function our_layers(map,options){
-		var geoPointsUrl = 'http://127.0.0.1:8000/api/v1/geojson/?format=json';
-		var osm = 'http://{s}.tile.openstreetmap.org/{z}{y}{x}.png';
-		
-		console.log(geoPointsUrl);
-		var greenIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
 
-		var blueIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
+        var shpfile = new L.Shapefile(
+          '{% static "shape/bairros_franca.zip"  %}',
+          {
+            onEachFeature: function (feature, layer) {
+              if (feature.properties) {
+                layer.bindPopup(
+                  Object.keys(feature.properties)
+                    .map(function (k) {
+                      if (k == "Bairro") {
+                        var bairro = k + ": " + feature.properties[k];
+                        return (
+                          '<p style="font-size: xx-large; color: #0E0046;">' +
+                          bairro +
+                          "</p>"
+                        );
+                      }
+                    })
+                    .join("<br />"),
+                  {
+                    maxHeight: 200,
+                  }
+                );
+              }
+            },
+          }
+        );
+        shpfile.addTo(map);
 
-		var violetIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
-
-		var yellowIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
-
-		var redtIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
-
-		var greytIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
-
-		var blackIcon = new L.Icon({
-		  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-		  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-		  iconSize: [25, 41],
-		  iconAnchor: [12, 41],
-		  popupAnchor: [1, -34],
-		  shadowSize: [41, 41]
-		});
-
-		var ambiental = new L.GeoJSON.AJAX(geoPointsUrl, {
-			filter: function(feature, layer) {
-				return feature.properties.areas == "ambiental";
-			},
-			onEachFeature: function(feature, layer){
-				layer.setIcon(greytIcon);
-				layer.bindPopup(feature.properties.descritivo_denuncia.toString());
-			}
-		});
-
-		var habitacional = new L.GeoJSON.AJAX(geoPointsUrl, {
-			filter: function(feature, layer) {
-				return feature.properties.areas == "habitacao";
-			},
-			pointToLayer: function(feature, latlng) {
-				return L.marker(latlng, yellowIcon);
-			},			
-			onEachFeature: function(feature, layer){
-				layer.setIcon(yellowIcon);
-				layer.bindPopup(feature.properties.descritivo_denuncia.toString());
-			},
-		});
-
-		var urbanismo = new L.GeoJSON.AJAX(geoPointsUrl, {
-			filter: function(feature, layer) {
-				return feature.properties.areas == "urbanismo";
-			},
-			onEachFeature: function(feature, layer){
-				layer.setIcon(blackIcon);
-				layer.bindPopup(feature.properties.descritivo_denuncia.toString());
-			}
-
-		});
-
-		ambiental.addTo(map);
-		habitacional.addTo(map);
-		urbanismo.addTo(map);
-
-		var baseLayers = {
-			"OSM": osm
-		};
-
-		var groupedOverlays = {
-		  "Denuncias": {
-		    "Ambientais": ambiental,
-		    "Habitacionas": habitacional,
-			"Urbanismo": urbanismo
-		  }
-		};
-		
-		// var markers = new L.GeoJSON.AJAX(geoPointsUrl);
-		// markers.addTo(map);
-
-		L.control.groupedLayers(null, groupedOverlays, { collapsed: false }).addTo(map);
-
-	}
-
-	</script>
-</head>
-<!-- NAVBAR
+        shpfile.once("data:loaded", function () {
+          console.log("finished loaded shapefile");
+        });
+      }
+    </script>
+  </head>
+  <!-- NAVBAR
 ================================================== -->
   <body>
+    <div
+      align="left"
+      style="border-bottom-color: #0eb028; border-bottom-style: solid"
+    >
+      <img src='{% static "img/logo.jpg"  %}' width="120px" height="98px" />
 
-    <div class="navbar-wrapper">
-      <div class="container">
-        <nav class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">Fiscaliza</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Início</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#contact">Contato</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
+      <div>
+        <h3
+          align="center"
+          style="margin-top: -50px; font-size: xx-large; color: #0eb028"
+        >
+          Mapa Geral de Ocorrências da cidade de Franca - SP
+        </h3>
       </div>
-{% leaflet_map "fiscaliza" callback="our_layers" %}
     </div>
 
-    </div><!-- /.container -->
-
+    <div>{% leaflet_map "fiscaliza" callback="our_layers" %}</div>
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+	================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script>
+      window.jQuery ||
+        document.write(
+          '<script src="../../assets/js/vendor/jquery.min.js"><\/script>'
+        );
+    </script>
+    <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="http://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
+    <script src="https://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

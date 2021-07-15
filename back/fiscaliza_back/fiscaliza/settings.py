@@ -71,7 +71,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'fiscaliza.urls'
 
@@ -157,17 +160,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+            os.path.join(BASE_DIR, 'static'),
+            )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+from whitenoise import WhiteNoise
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (-20.4917698, -47.85),
-    'DEFAULT_ZOOM': 12,
+    'DEFAULT_CENTER': (-20.53751000060051, -47.389502931003406),
+    'DEFAULT_ZOOM': 14,
     'MAX_ZOOM': 20,
     'MIN_ZOOM': 1,
     'SCALE': None,
-    'ATTRIBUTION_PREFIX': 'Fiscaliza'
+    'ATTRIBUTION_PREFIX': 'Fiscaliza',
+    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 }
 
 REST_FRAMEWORK = {
@@ -195,5 +210,5 @@ MATERIAL_ADMIN_SITE = {
     'HEADER':  ('Fiscaliza APP'),  # Admin site header
     'TITLE':  ('Fiscaliza APP'),  # Admin site title
     'MAIN_BG_COLOR':  '#0E0046',  # Admin site main color, css color should be specified
-    'MAIN_HOVER_COLOR':  '0EB028',  # Admin site main hover color, css color should be specified
+    'MAIN_HOVER_COLOR':  '#0EB028',  # Admin site main hover color, css color should be specified
 }
