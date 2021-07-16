@@ -1,9 +1,4 @@
-import 'package:fiscaliza_front/src/screens/help-abandono_screen.dart';
-import 'package:fiscaliza_front/src/screens/help-areapublica_screen.dart';
-import 'package:fiscaliza_front/src/screens/help-descarte_screen.dart';
-import 'package:fiscaliza_front/src/screens/help-desmatamento_screen.dart';
-import 'package:fiscaliza_front/src/screens/help-loteamento_screen.dart';
-import 'package:fiscaliza_front/src/screens/help-maustratos_screen.dart';
+import 'package:fiscaliza_front/src/screens/help_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(HelpTab());
@@ -40,8 +35,13 @@ class HelpTab extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpDescarteScreen()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => HelpScreen(
+                          'Descarte irregular de resíduos',
+                          'O resíduo destinado de maneira irregular tem a capacidade de degradar o meio ambiente e prejudicar a saúde humana. \n \nEntendemos destinação irregular de resíduos como todo aquele resíduo que não é dado um tratamento adequado ou disposição em locais legalizados e que tenha controle sobre eles.',
+                          'descarte_irregular.jpg')),
+                );
               },
             ),
             InkWell(
@@ -68,7 +68,10 @@ class HelpTab extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpDesmatamentoScreen()));
+                    builder: (context) => HelpScreen(
+                        'Desmatamento',
+                        'O desmatamento é um dos mais graves problemas ambientais do nosso tempo. \n \n Além de devastar as florestas e os recursos naturais, ele compromete o equilíbrio do planeta em seus diversos elementos, incluindo os ecossistemas, afetando gravemente também a economia e a sociedade.',
+                        'desmatamento.jpg')));
               },
             ),
             InkWell(
@@ -95,7 +98,10 @@ class HelpTab extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpLoteamentoScreen()));
+                    builder: (context) => HelpScreen(
+                        'Loteamento',
+                        'Loteamento irregular é aquele que possui algum tipo de registro no município. O responsável pode ter feito uma consulta prévia ou ter dado entrada com parte da documentação, mas não chegou a aprovar o projeto.',
+                        'loteamento.jpg')));
               },
             ),
             InkWell(
@@ -122,7 +128,10 @@ class HelpTab extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpAreaPublicaScreen()));
+                    builder: (context) => HelpScreen(
+                        'Uso indevido de área pública',
+                        'O uso indevido da área pública diz respeito a qualquer manipulação indevida no que pertence ao poder pública, como construções ou outras ações sem uma prévia autorização da autoridade.',
+                        'area_publica.jpg')));
               },
             ),
             InkWell(
@@ -149,7 +158,10 @@ class HelpTab extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpMausTratosScreen()));
+                    builder: (context) => HelpScreen(
+                        'Maus tratos de animais',
+                        'Os maus tratos aos animais representam todo ato que venha ferir a dignidade física e moral do animal, além de limitar a sua liberdade. \n \n Atos de violência, entre outros, são praticados com a finalidade única de causar dor, sofrimento e até morte ao animal. São inúmeras as maneiras de maltratar os animais.',
+                        'maus_tratos.jpg')));
               },
             ),
             InkWell(
@@ -176,7 +188,10 @@ class HelpTab extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => HelpAbandonoScreen()));
+                    builder: (context) => HelpScreen(
+                        'Abandono de animais',
+                        'Animais não são descartáveis e abandoná-los é crime segundo a nova Lei Federal nº 14.064/20, que altera a Lei nº 9.605/1998, aumentando a pena de detenção para até cinco anos para crimes de maus-tratos a cães e gatos.\n \n O abandono causa extremo sofrimento ao animal, que tem dificuldades para encontrar alimento e abrigo em ambientes desconhecidos, ficando desprotegidos da chuva, do frio, da exposição ao tempo e sujeitos a brigas, atropelamentos e maus-tratos. Vale lembrar que, nem todos os animais são resgatados ou adotados.',
+                        'abandono_animais.jpg')));
               },
             ),
           ],

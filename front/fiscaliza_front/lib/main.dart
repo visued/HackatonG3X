@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
       title: "Flutter's Clothing",
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: Color.fromARGB(255, 14, 0, 70)),
+          primaryColor: Color.fromARGB(255, 14, 0, 70),
+          accentColor: Color(0xff0EB028),
+          highlightColor: Color(0xff0EB028)),
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
     );
