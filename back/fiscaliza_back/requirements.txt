@@ -1,0 +1,15 @@
+Django
+django-material-admin==1.8.5
+leaflet==0.0.3
+djangorestframework==3.12.4
+djangorestframework-gis==0.17
+djangorestframework-simplejwt==4.7.2
+drf-yasg==1.20.0
+django-cpf==0.1.0
+Pillow==8.3.1
+defusedxml==0.7.1
+gunicorn==19.4.1
+drf-extra-fields==3.1.1
+django-cors-headers==3.7.0
+psycopg2==2.9.1
+whitenoise==5.2.0

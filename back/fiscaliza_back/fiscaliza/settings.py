@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from decouple import config
 from datetime import timedelta
+
+GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
+GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^c7)3q)6juc9pwzj*$uu@v#a=$03k%!2q9pkmxv=cd)uq$e8@e'
+SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -113,6 +117,15 @@ DATABASES = {
 
     }
 }
+
+DATABASES = {
+        'default': conf(
+            default=config('DATABASE_URL')
+        )
+}
+
+DATABASES['default'] = conf()
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
