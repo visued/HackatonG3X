@@ -1,1 +1,1 @@
-web: gunicorn fiscaliza.wsgi --log-file -
+web: gunicorn fiscalizahackton.wsgi --log-file -
