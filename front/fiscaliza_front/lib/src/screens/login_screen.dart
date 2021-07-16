@@ -2,20 +2,6 @@ import 'package:fiscaliza_front/src/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
-/* void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
-    );
-  }
-} */
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -33,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -53,9 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 32.0,
             ),
             Text(
-              'Seja bem vindo(a)! \n \n Faça seu login',
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor, fontSize: 20),
+              'Olá bem vindo de volta,',
+              style: TextStyle(color: Colors.white, fontSize: 24),
+            ),
+            Text(
+              'Por favor, faça seu login.',
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
             SizedBox(
               height: 32.0,
@@ -65,17 +54,20 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
-                    ),
-                    border: OutlineInputBorder(),
-                    labelText: 'E-mail',
-                    hintText: 'abc@gmail.com'),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
+                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'E-mail',
+                  hintText: 'abc@gmail.com',
+                  hintStyle: TextStyle(color: Colors.white),
+                  prefixIcon: Icon(Icons.email, color: Colors.white),
+                ),
               ),
             ),
             SizedBox(
@@ -87,18 +79,22 @@ class _LoginScreenState extends State<LoginScreen> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                    enabledBorder: const OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
-                    ),
-                    border: OutlineInputBorder(),
-                    labelText: 'Senha',
-                    hintText: 'Digite sua senha'),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
+                  ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Senha',
+                  hintText: 'Digite sua senha',
+                  prefixIcon: Icon(Icons.password, color: Colors.white),
+                  hintStyle: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             Row(
@@ -135,10 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 16.0,
             ),
             Container(
-              height: 50,
-              width: 250,
+              height: 40,
+              width: 300,
               decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Color(0xff0EB028),
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () {
@@ -155,10 +151,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 16.0,
             ),
             Container(
-              height: 50,
-              width: 250,
+              height: 40,
+              width: 300,
               decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Color(0xff0EB028),
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () {
