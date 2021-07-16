@@ -1,4 +1,5 @@
 import 'package:fiscaliza_front/src/screens/register_screen.dart';
+import 'package:fiscaliza_front/src/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
@@ -9,6 +10,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+  Authentication authentication = new Authentication();
   void _handleRememberme(bool value) {
     _rememberMe = value;
     setState(() {
@@ -29,9 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
                     width: 200,
                     height: 150,
-                    /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset('assets/images/logo.jpg')),
               ),
             ),
@@ -50,9 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 32.0,
             ),
             Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -78,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                controller: passwordController,
                 obscureText: true,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
@@ -137,9 +139,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Color(0xff0EB028),
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                onPressed: () async {
+                  await authentication.login(
+                      emailController.text, passwordController.text);
+                  // Navigator.push(
+                  //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
                 },
                 child: Text(
                   'ENTRAR',
