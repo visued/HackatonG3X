@@ -1,4 +1,4 @@
-Django
+Django==3.2.5
 django-material-admin==1.8.5
 leaflet==0.0.3
 djangorestframework==3.12.4
