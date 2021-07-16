@@ -1,5 +1,5 @@
+import 'package:fiscaliza_front/src/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'src/screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,9 +15,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           primaryColor: Color.fromARGB(255, 14, 0, 70),
           accentColor: Color(0xff0EB028),
-          highlightColor: Color(0xff0EB028)),
+          highlightColor: Color(0xff0EB028),
+          fontFamily: 'RobotoRegular'),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }
