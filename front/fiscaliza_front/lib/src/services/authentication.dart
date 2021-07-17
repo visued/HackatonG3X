@@ -20,6 +20,7 @@ class Authentication {
           final storage = new FlutterSecureStorage();
           String email = auth_token.data.email;
           String cpf = auth_token.data.cpf;
+          String log_name = auth_token.data.long_name;
           Map<String, dynamic> tokens =
               jsonDecode(auth_token.data.tokens.replaceAll("'", "\""));
           print(tokens['refresh']);
@@ -29,6 +30,7 @@ class Authentication {
           await storage.write(key: 'accessToken', value: accessToken);
           await storage.write(key: 'refreshToken', value: refreshToken);
           await storage.write(key: 'email', value: email);
+          await storage.write(key: 'longName', value: log_name);
           await storage.write(key: 'cpf', value: cpf);
           return [true, response.statusCode];
         } else {

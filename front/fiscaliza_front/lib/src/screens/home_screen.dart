@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       children: [
         Scaffold(
           appBar: AppBar(
-            title: Text("Minhas ocorrências"),
+            title: Text("Minhas Ocorrências"),
             centerTitle: true,
           ),
           drawer: CustomDrawer(_pageController),

@@ -27,7 +27,7 @@ class ResetPasswordScreen extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
-                  'Identifique-se para receber um e-mail com as instruções e o link para criar uma nova senha.',
+                  'Enviaremos um código para seu e-mail, para resetar sua senha insira na tela a seguir.',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
             ),
             SizedBox(
