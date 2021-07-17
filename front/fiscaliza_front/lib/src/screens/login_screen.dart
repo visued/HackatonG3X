@@ -68,11 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent, width: 2.0),
                   ),
                   border: OutlineInputBorder(),
                   labelText: 'E-mail',
                   hintText: 'abc@gmail.com',
+                  labelStyle: TextStyle(color: Colors.white),
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.email, color: Colors.white),
                   hoverColor: Colors.white,
@@ -97,11 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent, width: 2.0),
                   ),
                   border: OutlineInputBorder(),
                   labelText: 'Senha',
                   hintText: 'Digite sua senha',
+                  labelStyle: TextStyle(color: Colors.white),
+                  hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(
                     Icons.lock,
                     color: Colors.white,
@@ -117,7 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           _obscureText = !_obscureText;
                         });
                       }),
-                  hintStyle: TextStyle(color: Colors.white),
                   errorText: _validate ? 'campo obrigatório' : null,
                 ),
               ),
@@ -137,6 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Checkbox(
+                  side: BorderSide(color: Color(0xff0EB028)),
                   activeColor: Color(0xff0EB028),
                   value: _rememberMe,
                   onChanged: _handleRememberme,

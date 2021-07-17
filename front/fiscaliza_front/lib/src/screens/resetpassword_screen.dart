@@ -1,4 +1,4 @@
-import 'package:fiscaliza_front/src/screens/securitycode_screen.dart';
+import 'package:fiscaliza_front/src/screens/securitycode_resetpass_screen.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
@@ -67,8 +67,10 @@ class ResetPasswordScreen extends StatelessWidget {
                 onPressed: () async {
                   /* await authentication.login(
                       emailController.text, passwordController.text); */
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => SecurityCodeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => SecurityCodeResetPassScreen()));
                 },
                 child: Text(
                   'ENVIAR',

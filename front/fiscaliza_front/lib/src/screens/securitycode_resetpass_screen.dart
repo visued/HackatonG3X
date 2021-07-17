@@ -3,7 +3,7 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 
 import 'login_screen.dart';
 
-class SecurityCodeScreen extends StatelessWidget {
+class SecurityCodeResetPassScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +43,8 @@ class SecurityCodeScreen extends StatelessWidget {
                     activeColor: Colors.green,
                     selectedColor: Colors.greenAccent,
                   ),
-
                   animationDuration: Duration(milliseconds: 300),
                   enableActiveFill: true,
-                  //errorAnimationController: errorController,
-                  //controller: textEditingController,
                   onCompleted: (v) {
                     print("Completed");
                   },
