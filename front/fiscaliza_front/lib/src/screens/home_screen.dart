@@ -26,10 +26,10 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton: ButtonOcorrencia(),
         ),
         Scaffold(
-          /*  appBar: AppBar(
+          appBar: AppBar(
             title: Text("Ajuda"),
             centerTitle: true,
-          ), */
+          ),
           drawer: CustomDrawer(_pageController),
           body: HelpTab(),
         ),

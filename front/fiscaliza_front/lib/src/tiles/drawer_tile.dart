@@ -17,6 +17,8 @@ class DrawerTile extends StatelessWidget {
             controller.jumpToPage(page);
           },
           child: Container(
+              color: Theme.of(context).highlightColor,
+              margin: EdgeInsets.only(bottom: 3),
               height: 60.0,
               child: Row(
                 children: [
@@ -24,13 +26,13 @@ class DrawerTile extends StatelessWidget {
                       size: 32.0,
                       color: controller.page?.round() == page
                           ? Theme.of(context).primaryColor
-                          : Colors.grey[700]),
+                          : Colors.white),
                   SizedBox(width: 32.0),
                   Text(text,
                       style: TextStyle(
                         color: controller.page?.round() == page
                             ? Theme.of(context).primaryColor
-                            : Colors.grey[700],
+                            : Colors.white,
                         fontSize: 16.0,
                       ))
                 ],
