@@ -51,7 +51,7 @@ class EnderecoOcorrenciaScreen extends StatelessWidget {
                 Expanded(
                     child: Container(
                   child: ElevatedButton.icon(
-                    icon: Text('CRIAR OCORRÊNCIA'),
+                    icon: Text('INDENTIFICAR O INFRATOR'),
                     label: Icon(Icons.save, size: 16),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(

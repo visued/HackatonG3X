@@ -1,4 +1,4 @@
-import 'package:fiscaliza_front/src/screens/login_screen.dart';
+import 'package:fiscaliza_front/src/screens/securitycode_register_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -19,6 +19,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(title: Text('Novo Cadastro')),
       body: Column(
         children: <Widget>[
+          SizedBox(
+            height: 16.0,
+          ),
           Expanded(
               child: ListView(padding: EdgeInsets.all(7.0), children: [
             TextFormField(
@@ -108,22 +111,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     val!.length < 6 ? 'Password too short.' : null,
                 onSaved: (val) => _password = val,
                 obscureText: _obscureTextCheck),
+            SizedBox(
+              height: 16.0,
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                    child: Container(
-                  child: ElevatedButton.icon(
-                    icon: Text('CADASTRAR'),
-                    label: Icon(Icons.save, size: 16),
+                Container(
+                  height: 40,
+                  width: 300,
+                  child: ElevatedButton(
+                    child: Text('Criar seu cadastro',
+                        style: TextStyle(color: Colors.white, fontSize: 20)),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor)),
+                        backgroundColor:
+                            MaterialStateProperty.all(Color(0xff0EB028))),
                     onPressed: () => {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LoginScreen()))
+                          builder: (context) => SecurityCodeRegisterScreen()))
                     },
                   ),
-                ))
+                )
               ],
             )
           ])),

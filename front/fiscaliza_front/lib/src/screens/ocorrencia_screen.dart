@@ -1,6 +1,9 @@
+import 'package:fiscaliza_front/src/screens/camera_screen.dart';
+import 'package:fiscaliza_front/src/tabs/help_tab.dart';
 import 'package:flutter/material.dart';
-
+import 'package:camera/camera.dart';
 import 'endereco_ocorrencia_screen.dart';
+import 'home_screen.dart';
 
 class OcorrenciaScreen extends StatefulWidget {
   @override
@@ -12,7 +15,28 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Nova ocorrência')),
+        appBar: AppBar(
+          title: Text('Nova ocorrência'),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => HomeScreen()));
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.help_outlined,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => HelpTab()));
+              },
+            )
+          ],
+        ),
         body: ListView(
           padding: EdgeInsets.all(7.0),
           children: [
@@ -90,7 +114,13 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.green)),
-                    onPressed: () => {},
+                    onPressed: () async {
+                      WidgetsFlutterBinding.ensureInitialized();
+                      final cameras = await availableCameras();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              CameraScreen(camera: cameras.first)));
+                    },
                   ),
                 )),
                 SizedBox(
