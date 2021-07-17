@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class HomeTile extends StatelessWidget {
   final IconData icon;
   final String name;
-  HomeTile(this.icon, this.name);
+  final String status;
+  HomeTile(this.icon, this.name, this.status);
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -13,26 +14,36 @@ class HomeTile extends StatelessWidget {
             /*  Navigator.of(context).pop();
             controller.jumpToPage(page); */
           },
-          child: Card(
-              child: Row(
-            children: [
-              Icon(
-                icon,
-                size: 32.0,
-                /* color: controller.page?.round() == page
-                          ? Theme.of(context).primaryColor
-                          : Colors.grey[700] */
+          child: Container(
+              padding: EdgeInsets.only(left: 5.0),
+              height: 70.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey, width: 1.0),
+                color: Colors.white,
               ),
-              SizedBox(width: 32.0),
-              Text(name,
-                  style: TextStyle(
-                      /* color: controller.page?.round() == page
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey[700],
-                        fontSize: 16.0, */
-                      ))
-            ],
-          ))),
+              child: Row(
+                children: [
+                  Icon(
+                    icon,
+                    size: 25.0,
+                  ),
+                  SizedBox(width: 32.0),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(name,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          )),
+                      Text(status,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                          ))
+                    ],
+                  )
+                ],
+              ))),
     );
   }
 }

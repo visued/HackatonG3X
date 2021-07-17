@@ -1,5 +1,6 @@
 import 'package:fiscaliza_front/src/screens/register_screen.dart';
-import 'package:fiscaliza_front/src/services/authentication.dart';
+import 'package:fiscaliza_front/src/screens/resetpassword_screen.dart';
+//import 'package:fiscaliza_front/src/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
@@ -9,10 +10,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscureText = true;
+  String? _password;
   bool _rememberMe = false;
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-  Authentication authentication = new Authentication();
+  //Authentication authentication = new Authentication();
   void _handleRememberme(bool value) {
     _rememberMe = value;
     setState(() {
@@ -54,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: emailController,
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -75,29 +79,38 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 16.0,
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 15, bottom: 0),
-              //padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                controller: passwordController,
-                obscureText: true,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
-                  ),
-                  border: OutlineInputBorder(),
-                  labelText: 'Senha',
-                  hintText: 'Digite sua senha',
-                  prefixIcon: Icon(Icons.password, color: Colors.white),
-                  hintStyle: TextStyle(color: Colors.white),
-                ),
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: Color.fromARGB(255, 14, 176, 40),
+                            width: 2.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromARGB(255, 67, 224, 93),
+                            width: 2.0),
+                      ),
+                      border: OutlineInputBorder(),
+                      hintText: 'Senha',
+                      prefixIcon: Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                          icon: Padding(
+                              padding:
+                                  EdgeInsets.only(left: 4, right: 4, top: 0),
+                              child: _obscureText == true
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility)),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          })),
+                  validator: (val) =>
+                      val!.length < 6 ? 'Password too short.' : null,
+                  onSaved: (val) => _password = val,
+                  obscureText: _obscureText),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,18 +126,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(
                     'Lembrar-me',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),
                 TextButton(
                   onPressed: () {
-                    // Redirecionar para tela de reset de senha
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ResetPasswordScreen()));
                   },
                   child: Text(
                     'Esqueci minha senha',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),
               ],
@@ -140,10 +152,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  await authentication.login(
-                      emailController.text, passwordController.text);
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  /* await authentication.login(
+                      emailController.text, passwordController.text); */
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => HomeScreen()));
                 },
                 child: Text(
                   'ENTRAR',

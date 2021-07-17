@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'endereco_infrator_screen.dart';
+
 class EnderecoOcorrenciaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,8 @@ class EnderecoOcorrenciaScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).primaryColor)),
                     onPressed: () => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => EnderecoInfratorScreen()))
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => EnderecoOcorrenciaScreen()))
                       // AlertDialog(
