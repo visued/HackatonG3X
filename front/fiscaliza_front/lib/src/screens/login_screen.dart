@@ -184,9 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                  /* setState(() {
+                  setState(() {
                     bool emailValid = RegExp(
                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(emailController.text);
@@ -215,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       }
                     }
-                  } */
+                  }
                 },
                 child: Text(
                   'ENTRAR',
