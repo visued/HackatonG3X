@@ -1,5 +1,6 @@
+import 'package:fiscaliza_front/src/screens/camera_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:camera/camera.dart';
 import 'endereco_ocorrencia_screen.dart';
 
 class OcorrenciaScreen extends StatefulWidget {
@@ -90,7 +91,12 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.green)),
-                    onPressed: () => {},
+                    onPressed: () async {
+                      WidgetsFlutterBinding.ensureInitialized();
+                      final cameras = await availableCameras();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CameraScreen(camera:cameras.first)));
+                    },
                   ),
                 )),
                 SizedBox(
