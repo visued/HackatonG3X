@@ -1,5 +1,7 @@
 import 'package:fiscaliza_front/src/screens/register_screen.dart';
+import 'package:fiscaliza_front/src/screens/resetpassword_screen.dart';
 import 'package:fiscaliza_front/src/services/authentication.dart';
+//import 'package:fiscaliza_front/src/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
 
@@ -9,16 +11,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscureText = true;
   bool _rememberMe = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Authentication authentication = Authentication();
   int statusCode = 0;
   bool _validate = false;
   String _messageFieldEmail = '';
+  Authentication authentication = new Authentication();
+  void _handleRememberme(bool? value) {
+    _rememberMe = value!;
 
-  void _handleRememberme(bool value) {
-    _rememberMe = value;
     setState(() {
       _rememberMe = value;
     });
@@ -86,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: passwordController,
-                obscureText: true,
+                obscureText: _obscureText,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -99,7 +102,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                   labelText: 'Senha',
                   hintText: 'Digite sua senha',
-                  prefixIcon: Icon(Icons.password, color: Colors.white),
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                  ),
+                  suffixIcon: IconButton(
+                      icon: Padding(
+                          padding: EdgeInsets.only(left: 4, right: 4, top: 0),
+                          child: _obscureText == true
+                              ? Icon(Icons.visibility_off, color: Colors.white)
+                              : Icon(Icons.visibility, color: Colors.white)),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      }),
                   hintStyle: TextStyle(color: Colors.white),
                   errorText: _validate ? 'campo obrigatório' : null,
                 ),
@@ -119,10 +136,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /*  Checkbox(
-                    activeColor: Color(0xff00C8E8),
-                    value: _rememberMe,
-                    onChanged: _handleRememberme), */
+                Checkbox(
+                  activeColor: Color(0xff0EB028),
+                  value: _rememberMe,
+                  onChanged: _handleRememberme,
+                ),
                 SizedBox(width: 10.0),
                 TextButton(
                   onPressed: () {
@@ -135,7 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Redirecionar para tela de reset de senha
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ResetPasswordScreen()));
                   },
                   child: Text(
                     'Esqueci minha senha',

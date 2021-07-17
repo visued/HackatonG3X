@@ -6,11 +6,10 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
+        padding: EdgeInsets.all(5.0),
         children: [
-          HomeTile(
-            Icons.pets,
-            'Maus tratos animais',
-          )
+          HomeTile(Icons.pets, 'Maus tratos animais', 'maus tratos'),
+          Divider(),
         ],
       ),
     );
