@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'endereco_ocorrencia_screen.dart';
 import 'home_screen.dart';
+import 'package:fiscaliza_front/src/tiles/map_tile.dart';
 
 class OcorrenciaScreen extends StatefulWidget {
   @override
@@ -40,15 +41,10 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
         body: ListView(
           padding: EdgeInsets.all(7.0),
           children: [
-            Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                  Color.fromARGB(0, 14, 0, 70),
-                  Color.fromARGB(255, 255, 255, 255),
-                  Color.fromARGB(0, 14, 176, 40),
-                ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-                /*color: Colors.blue,*/
-                height: 350),
+            Container(                                
+                height: 350,
+                child: MapTile()
+                ),
             Divider(),
             DropdownButton<String>(
               isExpanded: true,
