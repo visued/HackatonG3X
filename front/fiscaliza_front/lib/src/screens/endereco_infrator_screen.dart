@@ -1,3 +1,4 @@
+import 'package:fiscaliza_front/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class EnderecoInfratorScreen extends StatelessWidget {
@@ -65,6 +66,7 @@ class EnderecoInfratorScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).primaryColor)),
                     onPressed: () => {
+                      showAlertDialog(context)
                       // Navigator.of(context).push(MaterialPageRoute(
                       //     builder: (context) => EnderecoOcorrenciaScreen()))
                     },
@@ -75,6 +77,35 @@ class EnderecoInfratorScreen extends StatelessWidget {
           ])),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("CONCLUIR"),
+      onPressed: () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Agradecemos o seu envio!"),
+      content: Text(
+          "O número da sua ocorrência é tal.\nSalientamos que informações insuficientes pode impossibilitar a apuração desta ocorrência."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
