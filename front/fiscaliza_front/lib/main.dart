@@ -14,9 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           primaryColor: Color(0xff020435),
-          accentColor: Color(0xff0EB028),
           highlightColor: Color(0xff0EB028),
-          hintColor: Colors.white,
           fontFamily: 'RobotoRegular'),
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),

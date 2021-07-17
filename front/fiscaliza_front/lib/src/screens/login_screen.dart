@@ -10,9 +10,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  Authentication authentication = new Authentication();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Authentication authentication = Authentication();
+  int statusCode = 0;
+  bool _validate = false;
+  String _messageFieldEmail = '';
+
   void _handleRememberme(bool value) {
     _rememberMe = value;
     setState(() {
@@ -54,20 +58,22 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: emailController,
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(
                         color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
+                    borderSide: BorderSide(color: Colors.white),
                   ),
                   border: OutlineInputBorder(),
                   labelText: 'E-mail',
                   hintText: 'abc@gmail.com',
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.email, color: Colors.white),
+                  hoverColor: Colors.white,
+                  errorText: _validate ? _messageFieldEmail : null,
                 ),
               ),
             ),
@@ -88,17 +94,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color.fromARGB(255, 14, 176, 40), width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Color.fromARGB(255, 67, 224, 93), width: 2.0),
+                    borderSide: BorderSide(color: Colors.white, width: 2.0),
                   ),
                   border: OutlineInputBorder(),
                   labelText: 'Senha',
                   hintText: 'Digite sua senha',
                   prefixIcon: Icon(Icons.password, color: Colors.white),
                   hintStyle: TextStyle(color: Colors.white),
+                  errorText: _validate ? 'campo obrigatório' : null,
                 ),
               ),
             ),
+            statusCode == 401
+                ? Text(
+                    'Usuário ou senha inválidos!',
+                    style: TextStyle(color: Colors.red, fontSize: 14),
+                  )
+                : statusCode == 400
+                    ? Text(
+                        'Requisição inválida',
+                        style: TextStyle(color: Colors.red, fontSize: 14),
+                      )
+                    : Text(''),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -113,8 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(
                     'Lembrar-me',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),
                 TextButton(
@@ -123,8 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(
                     'Esqueci minha senha',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),
               ],
@@ -140,10 +155,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  await authentication.login(
-                      emailController.text, passwordController.text);
-                  // Navigator.push(
-                  //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                  setState(() {
+                    bool emailValid = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(emailController.text);
+                    if (emailValid && !emailController.text.isEmpty) {
+                      _validate = true;
+                    } else {
+                      if (!emailValid) {
+                        _messageFieldEmail = 'Digite um e-mail válido.';
+                      }
+                      _validate = false;
+                    }
+                    passwordController.text.isEmpty
+                        ? _validate = true
+                        : _validate = false;
+                  });
+                  if (!_validate) {
+                    var logon = await authentication.login(
+                        emailController.text, passwordController.text);
+                    if (logon.isNotEmpty) {
+                      if (logon[0] == true && logon[1] == 200) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => HomeScreen()));
+                      } else if (logon[0] == false && logon[1] == 401) {
+                        setState(() {
+                          statusCode = logon[1];
+                        });
+                      }
+                    }
+                  }
                 },
                 child: Text(
                   'ENTRAR',
