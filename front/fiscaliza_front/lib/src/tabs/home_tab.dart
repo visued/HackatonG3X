@@ -14,10 +14,10 @@ class HomeTab extends StatelessWidget {
         child: StreamBuilder(
       stream: getFutureOcorrencias().asStream(),
       builder: (BuildContext context, AsyncSnapshot<Ocorrencia> snapshot) {
-        if (snapshot.data!.data.isNotEmpty) {
+        if (snapshot.data?.data.isNotEmpty ?? false) {
           return ListView.builder(
             padding: EdgeInsets.all(7.0),
-            itemCount: snapshot.data!.data.length,
+            itemCount: snapshot.data?.data.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 shadowColor: Colors.black,
@@ -26,23 +26,23 @@ class HomeTab extends StatelessWidget {
                   padding: EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      if (snapshot.data!.data[index].categorias == 'descarte')
-                        cardOcorrencia(snapshot.data!.data[index]),
-                      if (snapshot.data!.data[index].categorias ==
+                      if (snapshot.data?.data[index].categorias == 'descarte')
+                        cardOcorrencia(snapshot.data?.data[index]),
+                      if (snapshot.data?.data[index].categorias ==
                           'desmatamento')
-                        cardOcorrencia(snapshot.data!.data[index]),
-                      if (snapshot.data!.data[index].categorias ==
+                        cardOcorrencia(snapshot.data?.data[index]),
+                      if (snapshot.data?.data[index].categorias ==
                           'loteamento_irregular')
-                        cardOcorrencia(snapshot.data!.data[index]),
-                      if (snapshot.data!.data[index].categorias ==
+                        cardOcorrencia(snapshot.data?.data[index]),
+                      if (snapshot.data?.data[index].categorias ==
                           'uso_area_publica')
-                        cardOcorrencia(snapshot.data!.data[index]),
-                      if (snapshot.data!.data[index].categorias ==
+                        cardOcorrencia(snapshot.data?.data[index]),
+                      if (snapshot.data?.data[index].categorias ==
                           'maltrato_animais')
-                        cardOcorrencia(snapshot.data!.data[index]),
-                      if (snapshot.data!.data[index].categorias ==
+                        cardOcorrencia(snapshot.data?.data[index]),
+                      if (snapshot.data?.data[index].categorias ==
                           'abandono_animais')
-                        cardOcorrencia(snapshot.data!.data[index]),
+                        cardOcorrencia(snapshot.data?.data[index]),
                     ],
                   ),
                 ),
@@ -51,7 +51,7 @@ class HomeTab extends StatelessWidget {
           );
         } else {
           return Text(
-              'Você ainda não possui ocorrências regitradas, toque no botão (+) para inserir uma nova.');
+              'Você ainda não possui ocorrências registradas, toque no botão (+) para inserir uma nova.');
         }
       },
     ));
