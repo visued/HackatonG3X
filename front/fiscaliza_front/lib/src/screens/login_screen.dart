@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   border: OutlineInputBorder(),
                   labelText: 'E-mail',
-                  hintText: 'abc@gmail.com',
+                  hintText: 'Digite seu e-mail',
                   labelStyle: TextStyle(color: Colors.white),
                   hintStyle: TextStyle(color: Colors.white),
                   prefixIcon: Icon(Icons.email, color: Colors.white),
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           _obscureText = !_obscureText;
                         });
                       }),
-                  errorText: _validate ? 'campo obrigatório' : null,
+                  errorText: _validate ? 'Campo obrigatório' : null,
                 ),
               ),
             ),
@@ -146,14 +146,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   value: _rememberMe,
                   onChanged: _handleRememberme,
                 ),
-                SizedBox(width: 10.0),
                 TextButton(
                   onPressed: () {
                     // Salvar senha
                   },
-                  child: Text(
-                    'Lembrar-me',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: Text(
+                      'Lembrar-me',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
                   ),
                 ),
                 TextButton(
@@ -163,7 +165,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: Text(
                     'Esqueci minha senha',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline),
                   ),
                 ),
               ],

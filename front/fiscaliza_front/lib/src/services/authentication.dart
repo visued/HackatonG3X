@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fiscaliza_front/src/authentication/auth_urls.dart';
 import 'package:fiscaliza_front/src/models/auth_token.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Authentication {

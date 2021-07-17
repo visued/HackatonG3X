@@ -1,3 +1,4 @@
+import 'package:fiscaliza_front/src/screens/login_screen.dart';
 import 'package:fiscaliza_front/src/tabs/help_tab.dart';
 import 'package:fiscaliza_front/src/tabs/home_tab.dart';
 import 'package:fiscaliza_front/src/widgets/button_ocorrencia.dart';
@@ -25,12 +26,16 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton: ButtonOcorrencia(),
         ),
         Scaffold(
-          appBar: AppBar(
+          /*  appBar: AppBar(
             title: Text("Ajuda"),
             centerTitle: true,
-          ),
+          ), */
           drawer: CustomDrawer(_pageController),
           body: HelpTab(),
+        ),
+        Scaffold(
+          drawer: CustomDrawer(_pageController),
+          body: LoginScreen(),
         ),
       ],
     );
