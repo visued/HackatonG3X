@@ -33,12 +33,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             )),
             SizedBox(height: 16.0),
             TextFormField(
-                decoration: InputDecoration(
-              border: new OutlineInputBorder(
-                  borderSide: new BorderSide(color: Colors.teal)),
-              hintText: 'CPF',
-              prefixIcon: Icon(Icons.assignment_ind),
-            )),
+              decoration: InputDecoration(
+                border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.teal)),
+                hintText: 'CPF',
+                prefixIcon: Icon(Icons.assignment_ind),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
             SizedBox(
               height: 16.0,
             ),
@@ -111,6 +113,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     val!.length < 6 ? 'Password too short.' : null,
                 onSaved: (val) => _password = val,
                 obscureText: _obscureTextCheck),
+            TextButton(
+              child: Padding(
+                  padding: EdgeInsets.only(left: 130),
+                  child: Text(
+                    'Porque precisamos dos dados?',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline),
+                  )),
+              onPressed: () {
+                showAlertDialog(context);
+              },
+            ),
             SizedBox(
               height: 16.0,
             ),
@@ -137,6 +153,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ])),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Porque precisamos dos dados?"),
+      content: Text(
+          "Por conta da nova Lei Geral de Proteção de Dados (Lei 13.709/2018) ou LGPD, que tem como objetivo reforçar a responsabilidade e a transparência no tratamento dos seus dados pessoais (nome completo, endereço, CPF, email, número de whatsapp), gostaríamos de pedir o seu consentimento para armazená-los e utilizá-los com toda segurança e privacidade."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
