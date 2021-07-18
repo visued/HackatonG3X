@@ -157,7 +157,7 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                   icon: Icon(Icons.camera_alt, size: 16),
                   label: Text('INSERIR FOTO'),
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.green)),
+                      backgroundColor: MaterialStateProperty.all(Theme.of(context).highlightColor)),
                   onPressed: () async {
                     WidgetsFlutterBinding.ensureInitialized();
                     final cameras = await availableCameras();

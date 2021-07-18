@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:fiscaliza_front/src/screens/home_screen.dart';
+import 'package:fiscaliza_front/src/screens/ocorrencia_screen.dart';
 import 'package:flutter/material.dart';
 
 // Future<void> main() async {
@@ -28,7 +30,6 @@ import 'package:flutter/material.dart';
 // A screen that allows users to take a picture using a given camera.
 
 class CameraScreen extends StatefulWidget {
-  
   final CameraDescription camera;
 
   const CameraScreen({
@@ -69,13 +70,13 @@ class CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(title: const Text('Tire foto da infração')),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
-      body: FutureBuilder<void>(        
+      body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -125,7 +126,8 @@ class CameraScreenState extends State<CameraScreen> {
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
-  const DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
+  const DisplayPictureScreen({Key? key, required this.imagePath})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +135,48 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Foto da infração')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Container(
+          padding: EdgeInsets.all(5.0),
+          color: Theme.of(context).primaryColor,
+          child: Column(children: [
+            Expanded(child: Image.file(File(imagePath))),
+            Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  child: ElevatedButton.icon(
+                    icon: Icon(Icons.arrow_back, size: 16),
+                    label: Text('Voltar'),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.grey)),
+                    onPressed: ()  {
+                      Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (c) => HomeScreen()),
+                  (route) => false);           
+                    },
+                  ),
+                )),
+                SizedBox(
+                  width: 30.0,
+                ),
+                Expanded(
+                    child: Container(
+                  child: ElevatedButton.icon(
+                    icon: Text('SALVAR'),
+                    label: Icon(Icons.save, size: 16),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).highlightColor)),
+                    onPressed: () => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => OcorrenciaScreen()))
+                    },
+                  ),
+                )),
+              ],
+            )
+          ])),
     );
   }
 }
