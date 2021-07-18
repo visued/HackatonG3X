@@ -55,6 +55,8 @@ flutter:
      - assets/images/desmatamento.jpg
      - assets/images/loteamento.jpg
      - assets/images/maus_tratos.jpg
+     - assets/images/MPSP.png
+     - assets/images/FACEF.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

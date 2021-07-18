@@ -30,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Image.asset(
                         'assets/images/logo.jpg',
-                        height: 150,
+                        height: 80,
                       )),
                 ],
               ),
@@ -54,6 +54,31 @@ class CustomDrawer extends StatelessWidget {
                       showAlertDialog(context);
                     },
                   )),
+              Container(
+                  height: 550.0,
+                  padding: EdgeInsets.only(left: 27),
+                  alignment: Alignment.center,
+                  child: Row(children: [
+                    Image.asset(
+                      'assets/images/FACEF.png',
+                      height: 30,
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Container(
+                      width: 1,
+                      height: 30,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Image.asset(
+                      'assets/images/MPSP.png',
+                      height: 25,
+                    ),
+                  ])),
             ],
           )
         ],
