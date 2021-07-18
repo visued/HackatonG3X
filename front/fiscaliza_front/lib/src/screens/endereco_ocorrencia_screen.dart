@@ -1,7 +1,6 @@
 import 'package:fiscaliza_front/src/tiles/map_tile.dart';
 import 'package:flutter/material.dart';
-
-import 'endereco_infrator_screen.dart';
+import 'home_screen.dart';
 
 class EnderecoOcorrenciaScreen extends StatefulWidget {
   @override
@@ -94,14 +93,15 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                     Expanded(
                         child: Container(
                       child: ElevatedButton.icon(
-                        icon: Text('INDENTIFICAR O INFRATOR'),
+                        icon: Text('CONCLUIR'),
                         label: Icon(Icons.save, size: 16),
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Theme.of(context).primaryColor)),
                         onPressed: () => {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => EnderecoInfratorScreen()))
+                          showAlertDialog(context)
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) => EnderecoOcorrenciaScreen()))
                         },
                       ),
                     ))
@@ -110,6 +110,35 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
               ])),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("CONCLUIR"),
+      onPressed: () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Agradecemos o seu envio!"),
+      content: Text(
+          "O número da sua ocorrência é tal.\nSalientamos que informações insuficientes pode impossibilitar a apuração desta ocorrência."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
