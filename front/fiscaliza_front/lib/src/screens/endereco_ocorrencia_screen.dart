@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'endereco_infrator_screen.dart';
 
-class EnderecoOcorrenciaScreen extends StatefulWidget {  
-
+class EnderecoOcorrenciaScreen extends StatefulWidget {
   @override
-  _EnderecoOcorrenciaScreenState createState() => _EnderecoOcorrenciaScreenState();
+  _EnderecoOcorrenciaScreenState createState() =>
+      _EnderecoOcorrenciaScreenState();
 }
 
 class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
@@ -16,14 +16,9 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
       appBar: AppBar(title: Text('Endereço da ocorrência')),
       body: Column(
         children: <Widget>[
-          Container(
-              height: 350,
-              color: Colors.blue,
-              child: MapTile()
-            ),
+          Container(height: 350, color: Colors.blue, child: MapTile()),
           Expanded(
               child: ListView(padding: EdgeInsets.all(7.0), children: [
-            
             Divider(),
             TextFormField(
               validator: (text) {
@@ -35,24 +30,44 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
             ),
             SizedBox(height: 16.0),
             TextFormField(
+              validator: (text) {
+                if (text!.isEmpty) {
+                  return 'Nome do logradouro é obrigatório';
+                }
+              },
               decoration: InputDecoration(hintText: 'Número'),
             ),
             SizedBox(
               height: 16.0,
             ),
             TextFormField(
+              validator: (text) {
+                if (text!.isEmpty) {
+                  return 'Bairro é obrigatório';
+                }
+              },
               decoration: InputDecoration(hintText: 'Bairro'),
             ),
             SizedBox(
               height: 16.0,
             ),
             TextFormField(
+              validator: (text) {
+                if (text!.isEmpty) {
+                  return 'Ponto de referência é obrigatório';
+                }
+              },
               decoration: InputDecoration(hintText: 'Ponto de referência'),
             ),
             SizedBox(
               height: 16.0,
             ),
             TextFormField(
+                validator: (text) {
+                  if (text!.isEmpty) {
+                    return 'Ponto de referência é obrigatório';
+                  }
+                },
                 keyboardType: TextInputType.multiline,
                 maxLines: 5,
                 decoration: InputDecoration(

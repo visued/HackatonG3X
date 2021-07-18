@@ -75,6 +75,12 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                       dropdownValue == 'Loteamento irregular' ? true : false,
                   child: Column(children: [
                     TextFormField(
+                        validator: (text) {
+                          if (text!.isEmpty &&
+                              dropdownValue == 'Loteamento irregular') {
+                            return 'Nome do proprietário é obrigatório';
+                          }
+                        },
                         decoration: InputDecoration(
                             hintText: 'Nome do proprietário',
                             border: OutlineInputBorder(
@@ -95,6 +101,12 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                       height: 16.0,
                     ),
                     TextFormField(
+                        validator: (text) {
+                          if (text!.isEmpty &&
+                              dropdownValue == 'Loteamento irregular') {
+                            return 'Contato do proprietário é obrigatório';
+                          }
+                        },
                         decoration: InputDecoration(
                             hintText: 'Contato do proprietário',
                             border: OutlineInputBorder(
@@ -110,6 +122,11 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               TextFormField(
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Descrição da ocorrência é obrigatório';
+                    }
+                  },
                   keyboardType: TextInputType.multiline,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -149,43 +166,46 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
               // Colocar um floating button (drag & drop) para o botão de câmera
             ],
           )),
-          Container(padding: EdgeInsets.all(7.0),child: Row(
-            children: [
-              Expanded(
-                  child: Container(
-                child: ElevatedButton.icon(
-                  icon: Icon(Icons.camera_alt, size: 16),
-                  label: Text('INSERIR FOTO'),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Theme.of(context).highlightColor)),
-                  onPressed: () async {
-                    WidgetsFlutterBinding.ensureInitialized();
-                    final cameras = await availableCameras();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            CameraScreen(camera: cameras.first)));
-                  },
-                ),
-              )),
-              SizedBox(
-                width: 30.0,
-              ),
-              Expanded(
-                  child: Container(
-                child: ElevatedButton.icon(
-                  icon: Text('PRÓXIMO'),
-                  label: Icon(Icons.arrow_forward, size: 16),
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor)),
-                  onPressed: () => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EnderecoOcorrenciaScreen()))
-                  },
-                ),
-              )),
-            ],
-          ))
+          Container(
+              padding: EdgeInsets.all(7.0),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    child: ElevatedButton.icon(
+                      icon: Icon(Icons.camera_alt, size: 16),
+                      label: Text('INSERIR FOTO'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).highlightColor)),
+                      onPressed: () async {
+                        WidgetsFlutterBinding.ensureInitialized();
+                        final cameras = await availableCameras();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                CameraScreen(camera: cameras.first)));
+                      },
+                    ),
+                  )),
+                  SizedBox(
+                    width: 30.0,
+                  ),
+                  Expanded(
+                      child: Container(
+                    child: ElevatedButton.icon(
+                      icon: Text('PRÓXIMO'),
+                      label: Icon(Icons.arrow_forward, size: 16),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
+                      onPressed: () => {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => EnderecoOcorrenciaScreen()))
+                      },
+                    ),
+                  )),
+                ],
+              ))
         ]));
   }
 }
