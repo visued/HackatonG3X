@@ -61,9 +61,9 @@ class _MapTileState extends State<MapTile> {
           // onLongPress: _addMarker,
         ),
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Colors.blue,
             foregroundColor: Colors.black,
-            onPressed: () => _goToTheLake,
+            onPressed: () => _setCamera,
             child: const Icon(Icons.center_focus_strong)));
   }
 
@@ -78,8 +78,9 @@ class _MapTileState extends State<MapTile> {
   //         position: pos);        
   //   });
   // }
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller .future;
+  Future<void> _setCamera() async {
+    final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
   }
+ 
 }

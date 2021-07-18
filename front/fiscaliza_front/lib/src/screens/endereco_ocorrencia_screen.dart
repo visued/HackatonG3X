@@ -16,13 +16,14 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
       appBar: AppBar(title: Text('Endereço da ocorrência')),
       body: Column(
         children: <Widget>[
-          Expanded(
-              child: ListView(padding: EdgeInsets.all(7.0), children: [
-            Container(
+          Container(
               height: 350,
               color: Colors.blue,
               child: MapTile()
             ),
+          Expanded(
+              child: ListView(padding: EdgeInsets.all(7.0), children: [
+            
             Divider(),
             TextFormField(
               validator: (text) {
