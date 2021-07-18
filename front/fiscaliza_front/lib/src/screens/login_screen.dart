@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 10.0,
             ),
             Text(
-              'Olá, bem vindo de volta!',
+              'Olá, bem vindo(a) de volta!',
               style: TextStyle(color: Colors.white, fontSize: 22),
             ),
             SizedBox(
