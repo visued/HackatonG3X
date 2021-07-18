@@ -14,7 +14,6 @@ class HomeTab extends StatelessWidget {
   buildContainer() {
     final storage = FlutterSecureStorage();
     return Container(
-                            'uso_area_publica')
         child: Column(
       children: [
         Container(

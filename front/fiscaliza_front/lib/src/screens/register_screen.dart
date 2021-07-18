@@ -16,7 +16,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Novo Cadastro')),
+      appBar: AppBar(title: Text('Novo cadastro')),
       body: Column(
         children: <Widget>[
           SizedBox(
