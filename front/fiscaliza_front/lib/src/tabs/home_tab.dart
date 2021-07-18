@@ -1,4 +1,5 @@
 import 'package:fiscaliza_front/src/models/ocorrencia.dart';
+import 'package:fiscaliza_front/src/screens/details_screen.dart';
 import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
 
@@ -19,33 +20,40 @@ class HomeTab extends StatelessWidget {
             padding: EdgeInsets.all(7.0),
             itemCount: snapshot.data?.data.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              return Card(
-                shadowColor: Colors.black,
-                child: Container(
-                  width: 300,
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      if (snapshot.data?.data[index].categorias == 'descarte')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                      if (snapshot.data?.data[index].categorias ==
-                          'desmatamento')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                      if (snapshot.data?.data[index].categorias ==
-                          'loteamento_irregular')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                      if (snapshot.data?.data[index].categorias ==
-                          'uso_area_publica')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                      if (snapshot.data?.data[index].categorias ==
-                          'maltrato_animais')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                      if (snapshot.data?.data[index].categorias ==
-                          'abandono_animais')
-                        cardOcorrencia(snapshot.data?.data[index]),
-                    ],
+              return InkWell(
+                child: Card(
+                  shadowColor: Colors.black,
+                  child: Container(
+                    width: 300,
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        if (snapshot.data?.data[index].categorias == 'descarte')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                        if (snapshot.data?.data[index].categorias ==
+                            'desmatamento')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                        if (snapshot.data?.data[index].categorias ==
+                            'loteamento_irregular')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                        if (snapshot.data?.data[index].categorias ==
+                            'uso_area_publica')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                        if (snapshot.data?.data[index].categorias ==
+                            'maltrato_animais')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                        if (snapshot.data?.data[index].categorias ==
+                            'abandono_animais')
+                          cardOcorrencia(snapshot.data?.data[index]),
+                      ],
+                    ),
                   ),
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => DetailsScreen()),
+                  );
+                },
               );
             },
           );
