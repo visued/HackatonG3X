@@ -1,8 +1,15 @@
+import 'package:fiscaliza_front/src/tiles/map_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'endereco_infrator_screen.dart';
 
-class EnderecoOcorrenciaScreen extends StatelessWidget {
+class EnderecoOcorrenciaScreen extends StatefulWidget {  
+
+  @override
+  _EnderecoOcorrenciaScreenState createState() => _EnderecoOcorrenciaScreenState();
+}
+
+class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +21,7 @@ class EnderecoOcorrenciaScreen extends StatelessWidget {
             Container(
               height: 350,
               color: Colors.blue,
-              // child: MapTile()
+              child: MapTile()
             ),
             Divider(),
             TextFormField(
@@ -66,7 +73,7 @@ class EnderecoOcorrenciaScreen extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => EnderecoInfratorScreen()))
                       // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => EnderecoOcorrenciaScreen()))
+                      //     builder: (context) => EnderecoOcorrenciaScreenScreen()))
                       // AlertDialog(
                       //   title: Text("Agradecemos o seu envio"),
                       //   content: Container(
