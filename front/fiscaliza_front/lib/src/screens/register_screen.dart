@@ -1,4 +1,5 @@
 import 'package:fiscaliza_front/src/screens/securitycode_register_screen.dart';
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,7 +13,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureTextCheck = true;
   bool pressed = true;
   String? _password;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _cpfController = TextEditingController();
 
+  OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             )),
             SizedBox(height: 16.0),
             TextFormField(
+              controller: _cpfController,
               decoration: InputDecoration(
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
@@ -57,6 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             TextFormField(
+              controller: _emailController,
               decoration: InputDecoration(
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
@@ -69,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             new TextFormField(
+              controller: _passwordController,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Colors.teal)),
@@ -142,7 +150,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xff0EB028))),
-                    onPressed: () => {
+                    onPressed: () async => {
+                      print('mandando'),
+                      await ocorrenciasService.register(_emailController.text, _passwordController.text, _cpfController.text),
+                      print('enviou?'),
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SecurityCodeRegisterScreen()))
                     },
