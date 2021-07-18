@@ -169,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     AlertDialog alert = AlertDialog(
       title: Text("Porque precisamos dos dados?"),
       content: Text(
-          "Por conta da nova Lei Geral de Proteção de Dados (Lei 13.709/2018) ou LGPD, que tem como objetivo reforçar a responsabilidade e a transparência no tratamento dos seus dados pessoais (nome completo, endereço, CPF, email, número de whatsapp), gostaríamos de pedir o seu consentimento para armazená-los e utilizá-los com toda segurança e privacidade."),
+          "Por conta da nova Lei Geral de Proteção de Dados (Lei 13.709/2018) ou LGPD, que tem como objetivo reforçar a responsabilidade e a transparência no tratamento dos seus dados pessoais (nome completo, endereço, CPF, email, número de whatsapp), gostaríamos de pedir o seu consentimento para armazená-los e utilizá-los com toda segurança e privacidade. \n \nAo criar o seu cadastro você está concordando com os termos citados acima."),
       actions: [
         okButton,
       ],
