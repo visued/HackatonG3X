@@ -21,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
       child: Stack(
         children: [
           _buildDrawerBack(),
-          ListView(
+          Column(
             children: [
               Stack(
                 children: [
@@ -35,6 +35,7 @@ class CustomDrawer extends StatelessWidget {
                 ],
               ),
               Divider(),
+              Expanded(child: Container(child: Column(children: [
               DrawerTile(Icons.home, "Início", pageController, 0),
               DrawerTile(Icons.help, "Ajuda", pageController, 1),
               Container(
@@ -53,12 +54,15 @@ class CustomDrawer extends StatelessWidget {
                     onTap: () {
                       showAlertDialog(context);
                     },
-                  )),
+                  )),]))),
               Container(
-                  height: 550.0,
+                  // height: 550.0,
+                  margin: EdgeInsets.only(bottom: 20.0),
                   padding: EdgeInsets.only(left: 27),
-                  alignment: Alignment.center,
-                  child: Row(children: [
+                  // alignment: Alignment.center,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [                    
                     Image.asset(
                       'assets/images/FACEF.png',
                       height: 30,
