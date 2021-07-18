@@ -19,7 +19,7 @@ class HomeTab extends StatelessWidget {
           return ListView.builder(
             padding: EdgeInsets.all(7.0),
             itemCount: snapshot.data?.data.length ?? 0,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, index) {
               return InkWell(
                 child: Card(
                   shadowColor: Colors.black,
@@ -51,7 +51,22 @@ class HomeTab extends StatelessWidget {
                 ),
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => DetailsScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                              snapshot.data?.data[index].id,
+                              snapshot.data?.data[index].categorias,
+                              snapshot.data?.data[index].andamento,
+                              snapshot.data?.data[index].nomeLogradouro,
+                              snapshot.data?.data[index].numero,
+                              snapshot.data?.data[index].bairro,
+                              snapshot.data?.data[index].descricao,
+                              snapshot.data?.data[index].pontoReferencia,
+                              snapshot.data?.data[index].observacoes,
+                              snapshot.data?.data[index].loteamentoArea,
+                              snapshot.data?.data[index].loteamentoProprietario,
+                              snapshot.data?.data[index].loteamentoContato,
+                              snapshot.data?.data[index].imagem1,
+                            )),
                   );
                 },
               );
