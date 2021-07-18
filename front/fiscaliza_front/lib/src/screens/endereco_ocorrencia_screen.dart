@@ -11,6 +11,12 @@ class EnderecoOcorrenciaScreen extends StatelessWidget {
         children: <Widget>[
           Expanded(
               child: ListView(padding: EdgeInsets.all(7.0), children: [
+            Container(
+              height: 350,
+              color: Colors.blue,
+              // child: MapTile()
+            ),
+            Divider(),
             TextFormField(
               validator: (text) {
                 if (text!.isEmpty) {
