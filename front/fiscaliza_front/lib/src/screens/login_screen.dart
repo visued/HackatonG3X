@@ -44,18 +44,21 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(
-              height: 32.0,
+              height: 10.0,
             ),
             Text(
-              'Olá bem vindo de volta,',
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            ),
-            Text(
-              'Por favor, faça seu login.',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              'Olá, bem vindo de volta!',
+              style: TextStyle(color: Colors.white, fontSize: 22),
             ),
             SizedBox(
-              height: 32.0,
+              height: 10.0,
+            ),
+            Text(
+              'Insira seus dados para acessar a plataforma.',
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+            SizedBox(
+              height: 20.0,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
