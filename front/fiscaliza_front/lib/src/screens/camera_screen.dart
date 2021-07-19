@@ -107,7 +107,6 @@ class CameraScreenState extends State<CameraScreen> {
                   // Pass the automatically generated path to
                   // the DisplayPictureScreen widget.
                   imagePath: image.path,
-                  addImage: this.widget.addImage,
                 ),
               ),
             );
@@ -124,9 +123,7 @@ class CameraScreenState extends State<CameraScreen> {
 
 class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
-  final Function addImage;
-  const DisplayPictureScreen(
-      {Key? key, required this.imagePath, required this.addImage})
+  const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
   @override
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
