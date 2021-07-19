@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
+import 'new_password_screen.dart';
 
-import 'login_screen.dart';
+class SecurityCodeResetPassScreen extends StatefulWidget {
+  const SecurityCodeResetPassScreen({Key? key}) : super(key: key);
 
-class SecurityCodeResetPassScreen extends StatelessWidget {
+  @override
+  _SecurityCodeResetPassScreenState createState() =>
+      _SecurityCodeResetPassScreenState();
+}
+
+class _SecurityCodeResetPassScreenState
+    extends State<SecurityCodeResetPassScreen> {
+  OcorrenciasService ocorrenciasService = OcorrenciasService();
+  final _codeController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +42,7 @@ class SecurityCodeResetPassScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                 child: PinCodeTextField(
+                  controller: _codeController,
                   appContext: context,
                   length: 6,
                   obscureText: false,
@@ -69,13 +82,16 @@ class SecurityCodeResetPassScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  /* await authentication.login(
-                      emailController.text, passwordController.text); */
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => LoginScreen()));
+                  /* await ocorrenciasService.verifyPassword(
+                      _codeController.text, _passwordController.text = ''); */
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              NewPasswordScreen(code: _codeController.text)));
                 },
                 child: Text(
-                  'VERIFICAR',
+                  'RESETAR SENHA',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),

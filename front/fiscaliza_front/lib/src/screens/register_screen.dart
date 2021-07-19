@@ -23,6 +23,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _cpfController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _nameController = TextEditingController();
+
   var confirmPass;
   OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
@@ -37,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Expanded(
               child: ListView(padding: EdgeInsets.all(7.0), children: [
             TextFormField(
+              controller: _nameController,
               decoration: InputDecoration(
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
@@ -66,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             TextFormField(
+              controller: _phoneController,
               decoration: InputDecoration(
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
@@ -190,8 +195,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
 
                       if (!_validate) {
-                        await ocorrenciasService.register(_emailController.text,
-                            _passwordController.text, _cpfController.text);
+                        await ocorrenciasService.register(
+                          _emailController.text,
+                          _cpfController.text,
+                          _phoneController.text,
+                          _nameController.text,
+                          _passwordController.text,
+                        );
 
                         Navigator.push(
                             context,

@@ -147,7 +147,7 @@ class HomeTab extends StatelessWidget {
                       fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
-              if (snapshot.andamento == 'andamento_8')
+              if (snapshot.andamento == 'andamento_07')
                 Text(
                   'Encaminhamento do AI à CETESB',
                   style: TextStyle(
@@ -155,7 +155,7 @@ class HomeTab extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
-              if (snapshot.andamento == 'andamento_9') Text('Não Procede'),
+              if (snapshot.andamento == 'andamento_09') Text('Não Procede'),
               if (snapshot.andamento == '')
                 Text(
                   'Andamento não disponível.',

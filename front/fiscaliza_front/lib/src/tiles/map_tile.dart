@@ -39,7 +39,7 @@ class _MapTileState extends State<MapTile> {
           onLongPress: _addMarker,
         ),
         floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.blue,
+            backgroundColor: Theme.of(context).highlightColor,
             foregroundColor: Colors.black,
             onPressed: () => _setCamera(),
             child: const Icon(Icons.center_focus_strong)));

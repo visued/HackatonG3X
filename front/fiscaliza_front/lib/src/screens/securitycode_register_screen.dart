@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'login_screen.dart';
 
-class SecurityCodeRegisterScreen extends StatelessWidget {
+class SecurityCodeRegisterScreen extends StatefulWidget {
+  const SecurityCodeRegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  _SecurityCodeRegisterScreenState createState() =>
+      _SecurityCodeRegisterScreenState();
+}
+
+class _SecurityCodeRegisterScreenState
+    extends State<SecurityCodeRegisterScreen> {
+  OcorrenciasService ocorrenciasService = OcorrenciasService();
+  final _codeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +41,7 @@ class SecurityCodeRegisterScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
                 child: PinCodeTextField(
+                  controller: _codeController,
                   appContext: context,
                   length: 6,
                   obscureText: false,
@@ -69,8 +81,7 @@ class SecurityCodeRegisterScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  /* await authentication.login(
-                      emailController.text, passwordController.text); */
+                  await ocorrenciasService.verifyRegister(_codeController.text);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => LoginScreen()));
                 },

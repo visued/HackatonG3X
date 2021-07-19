@@ -4,6 +4,8 @@ import 'package:fiscaliza_front/src/models/nova_ocorrencia.dart';
 import 'package:fiscaliza_front/src/models/ocorrencia.dart';
 import 'package:fiscaliza_front/src/models/register.dart';
 import 'package:fiscaliza_front/src/models/resetPassword.dart';
+import 'package:fiscaliza_front/src/models/verifyPassword.dart';
+import 'package:fiscaliza_front/src/models/verifyRegister.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class OcorrenciasService {
@@ -28,9 +30,15 @@ class OcorrenciasService {
     }
   }
 
-  register(String email, String password, String cpf) async {
+  register(String email, String cpf, String phone, String long_name,
+      String password) async {
     try {
-      Register obj = Register(email: email, cpf: cpf, password: password);
+      Register obj = Register(
+          email: email,
+          cpf: cpf,
+          phone: phone,
+          long_name: long_name,
+          password: password);
       var dio = Dio();
 
       print('teste');
@@ -120,6 +128,42 @@ class OcorrenciasService {
       }
     } on DioError catch (err) {
       print(err);
+      return [];
+    }
+  }
+
+  verifyRegister(String code) async {
+    try {
+      VerifyRegister obj = VerifyRegister(code: code);
+      var dio = Dio();
+      print(obj.toJson());
+      Response response =
+          await dio.post('${AuthUrls.verifyRegister}', data: obj.toJson());
+      print(obj.toJson());
+      if (response.statusCode == 201) {
+        return print(response);
+      } else {
+        return [];
+      }
+    } on DioError catch (err) {
+      return [];
+    }
+  }
+
+  verifyPassword(String? code, String password) async {
+    try {
+      VerifyPassword obj = VerifyPassword(code: code, password: password);
+      var dio = Dio();
+      print(obj.toJson());
+      Response response =
+          await dio.post('${AuthUrls.verifyPassword}', data: obj.toJson());
+      print(obj.toJson());
+      if (response.statusCode == 201) {
+        return print(response);
+      } else {
+        return [];
+      }
+    } on DioError catch (err) {
       return [];
     }
   }
