@@ -1,0 +1,94 @@
+#### Levantamentos
+Entrega: 28 de junho, até às 21:00
+Apresentação: 19/07 às 19:00
+	- 10 minutos de apresentação
+	- Solução deve estar no GitHub e documentação deve estar finalizada
+Apresentação do resultado: 20/07, às 19:00
+
+++ Stackholders
+- Luis fernando fernandes = Inspetor Geral da Guarda Civil Municipal
+- Alex Veronez (gerente distrital) e Gilson Santos de Mendoça = Sabesp
+	- (os caras que estão dando o dinheiro)
+- Paulo Borges = Promotor de Justiça de Franca
+- carlos gasparoto = Promotor de Justiça de Franca
+- Filipe = Scrum Master e monstro em segurança de dados
+
+
+* Polícia ambiental municipal e COMDEMA
+
+* Questão problema (segundo Paulo Borges)
+- 91 chamados referentes a descarte de resíduos sólidos
+- 46 procedimento em relação Fauna
+- 37 Floral: limpeza de terreno com queimada
+- 9 procedimentos
+- Discarte de lixo
+- Problema com animais
+
+++ Possíveis soluções
+- Dificuldade de acesso a soluções tecnológicas, solução simples para pessoas que não tem intimidade com isso
+- Aplicativo é o foco para contribuir para a preservação do meio ambiente
+
+
+
+++ Objetivos
+- Minha geração desfrutar de um ambiente top
+- (Viabilidade) Conjugação de esforços, união de todos para desenvolver uma solução com objetivo de ter um meio-ambiente bom para as gerações futuras
+- (Viabilidade) Eficiência no combate de crimes ambientais
+- (Viabilidade) comunicação mais efeciente entre os orgãos de combate ambiental e urbano
+- Acompanhamento de chamados 
+
+
+++ Dúvidas
+- Reflorestamento da bacia do canoas que está sendo feito. O que é isso?
+
+- Tópico 6: Usuário deve visualizar o histórico de ocorrencias finalizadas somente que ele abriu ou todas já fechadas?
+	- Só para quem cadastrou a denûncia
+- Quais são os perfis de usuário que a guarda civil precisa?		
+- Comunicação com o Filipe será feita somente pelo Discord ou whatsapp também?
+
+
+
+#### Dúvidas
+++ Estamos trabalhando com qual perfil de usuário aqui?
+
+- RESPOSTA: 
+
+
+++ Hoje as ocorrências possuem os status de: 
+Registro do auto de infração - AI, 
+Encaminhamento do AI à 2ª. Promotoria de Justiça, 
+Encaminhamento do AI à 7ª. Promotoria de Justiça, 
+Encaminhamento do AI à Polícia Civil, 
+Encaminhamento do AI à Polícia Militar Ambiental 
+E Encaminhamento do AI à CETESB
+
+Na minha visão, o munícipe francano não vai entender o que cada uma significa. Como podemos adaptar esses nomes para trazer uma comunicação mais simples para o usuário?
+
+- RESPOSTA: 
+
+
+++ No cadastro do munícipe no aplicativo, os campos listados como obrigatórios são: Nome do logradouro, Número, Bairro, Ponto de referência e Outras observações. Esses dois ultimos campos, que são Ponto de referência e Outras observações, realmente precisam ser obrigatórios?
+
+- RESPOSTA: 
+
+
+++ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
