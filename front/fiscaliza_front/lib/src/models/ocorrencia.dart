@@ -31,12 +31,12 @@ class Datum {
     required this.loteamentoArea,
     required this.loteamentoProprietario,
     required this.loteamentoContato,
-    required this.imagem1,
+/*     required this.imagem1,
     required this.imagem2,
     required this.imagem3,
     required this.imagem4,
     required this.imagem5,
-    required this.imagem6,
+    required this.imagem6, */
     required this.criado,
   });
   int id;
@@ -54,12 +54,12 @@ class Datum {
   String loteamentoArea;
   String loteamentoProprietario;
   String loteamentoContato;
-  String imagem1;
+/*   String imagem1;
   dynamic imagem2;
   dynamic imagem3;
   dynamic imagem4;
   dynamic imagem5;
-  dynamic imagem6;
+  dynamic imagem6; */
   String criado;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -78,12 +78,12 @@ class Datum {
         loteamentoArea: json["loteamento_area"],
         loteamentoProprietario: json["loteamento_proprietario"],
         loteamentoContato: json["loteamento_contato"],
-        imagem1: json["imagem_1"],
+        /*   imagem1: json["imagem_1"],
         imagem2: json["imagem_2"],
         imagem3: json["imagem_3"],
         imagem4: json["imagem_4"],
         imagem5: json["imagem_5"],
-        imagem6: json["imagem_6"],
+        imagem6: json["imagem_6"], */
         criado: json["criado"],
       );
 
@@ -103,12 +103,12 @@ class Datum {
         "loteamento_area": loteamentoArea,
         "loteamento_proprietario": loteamentoProprietario,
         "loteamento_contato": loteamentoContato,
-        "imagem_1": imagem1,
+        /*    "imagem_1": imagem1,
         "imagem_2": imagem2,
         "imagem_3": imagem3,
         "imagem_4": imagem4,
         "imagem_5": imagem5,
-        "imagem_6": imagem6,
+        "imagem_6": imagem6, */
         "criado": criado,
       };
 }

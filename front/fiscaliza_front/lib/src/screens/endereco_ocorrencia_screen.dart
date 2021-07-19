@@ -1,6 +1,6 @@
 import 'package:fiscaliza_front/src/models/nova_ocorrencia.dart';
 import 'package:fiscaliza_front/src/services/ocorrencias.dart';
-import 'package:fiscaliza_front/src/tiles/map_tile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'camera_screen.dart';
@@ -55,69 +55,6 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
               flex: 1,
               child: ListView(padding: EdgeInsets.all(7.0), children: [
                 Divider(),
-                TextFormField(
-                  controller: controller_nome_logradouro,
-                  validator: (text) {
-                    if (text!.isEmpty) {
-                      return 'Nome do logradouro é obrigatório';
-                    }
-                  },
-                  decoration: InputDecoration(hintText: '* Nome do logradouro'),
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  controller: controller_numero,
-                  validator: (text) {
-                    if (text!.isEmpty) {
-                      return 'Número é obrigatório';
-                    }
-                  },
-                  decoration: InputDecoration(hintText: 'Número'),
-                ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextFormField(
-                  controller: controller_bairro,
-                  validator: (text) {
-                    if (text!.isEmpty) {
-                      return 'Bairro é obrigatório';
-                    }
-                  },
-                  decoration: InputDecoration(hintText: 'Bairro'),
-                ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextFormField(
-                  controller: controller_ponto_referencia,
-                  validator: (text) {
-                    if (text!.isEmpty) {
-                      return 'Ponto de referência é obrigatório';
-                    }
-                  },
-                  decoration: InputDecoration(hintText: 'Ponto de referência'),
-                ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextFormField(
-                    controller: controller_observacoes,
-                    validator: (text) {
-                      if (text!.isEmpty) {
-                        return 'Observações são obrigatórias';
-                      }
-                    },
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                        hintText: 'Observações',
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))))),
-                SizedBox(
-                  height: 16.0,
-                ),
                 DropdownButton<String>(
                   isExpanded: true,
                   value: dropdownValue,
@@ -199,8 +136,71 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         height: 16.0,
                       )
                     ])),
+                TextFormField(
+                  controller: controller_nome_logradouro,
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Nome do logradouro é obrigatório';
+                    }
+                  },
+                  decoration: InputDecoration(hintText: 'Nome do logradouro'),
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: controller_numero,
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Número é obrigatório';
+                    }
+                  },
+                  decoration: InputDecoration(hintText: 'Número'),
+                ),
+                SizedBox(
+                  height: 16.0,
+                ),
+                TextFormField(
+                  controller: controller_bairro,
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Bairro é obrigatório';
+                    }
+                  },
+                  decoration: InputDecoration(hintText: 'Bairro'),
+                ),
+                SizedBox(
+                  height: 16.0,
+                ),
+                TextFormField(
+                  controller: controller_ponto_referencia,
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Ponto de referência é obrigatório';
+                    }
+                  },
+                  decoration: InputDecoration(hintText: 'Ponto de referência'),
+                ),
+                SizedBox(
+                  height: 16.0,
+                ),
+                TextFormField(
+                    controller: controller_observacoes,
+                    validator: (text) {
+                      if (text!.isEmpty) {
+                        return 'Observações são obrigatórias';
+                      }
+                    },
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                        hintText: 'Observações',
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))))),
+                SizedBox(
+                  height: 16.0,
+                ),
                 Text(
-                  "Descrição do Ocorrência:",
+                  "Descrição da ocorrência:",
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
@@ -318,17 +318,25 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
   }
 
   handleDropDown(String drop) {
-    if (drop == 'Descarte irregular de resíduos')
-      return 'descarte';
-    else if (drop == 'Desmatamento')
-      return 'desmatamento';
-    else if (drop == 'Loteamento irregular')
-      return 'loteamento_irregular';
-    else if (drop == 'Uso indevido de área pública ')
-      return 'uso_area_publica';
-    else if (drop == 'Maus tratos contra animais')
-      return 'maltrato_animais';
-    else if (drop == 'Abandono de animais') return 'abandono_animais';
+    if (drop == 'Descarte irregular de resíduos') {
+      drop = 'descarte';
+      return drop;
+    } else if (drop == 'Desmatamento') {
+      drop = 'desmatamento';
+      return drop;
+    } else if (drop == 'Loteamento irregular') {
+      drop = 'loteamento_irregular';
+      return drop;
+    } else if (drop == 'Uso indevido de área pública ') {
+      drop = 'uso_area_publica';
+      return drop;
+    } else if (drop == 'Maus tratos contra animais') {
+      drop = 'maltrato_animais';
+      return drop;
+    } else if (drop == 'Abandono de animais') {
+      drop = 'abandono_animais';
+      return drop;
+    }
   }
 
   showAlertDialog(BuildContext context) {
@@ -345,7 +353,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
     AlertDialog alert = AlertDialog(
       title: Text("Agradecemos o seu envio!"),
       content: Text(
-          "O número da sua ocorrência é tal.\nSalientamos que informações insuficientes pode impossibilitar a apuração desta ocorrência."),
+          "Informamos que dados insuficientes pode impossibilitar a apuração desta ocorrência."),
       actions: [
         okButton,
       ],

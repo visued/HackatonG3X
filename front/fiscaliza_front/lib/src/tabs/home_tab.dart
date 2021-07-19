@@ -16,24 +16,6 @@ class HomeTab extends StatelessWidget {
     return Container(
         child: Column(
       children: [
-        Container(
-            padding: EdgeInsets.all(5.0),
-            child: TextField(
-              // controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Pesquise sua ocorrência',
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    //chamar função de pesquisa
-                  },
-                  icon: Icon(Icons.search),
-                ),
-              ),
-            )),
-        Container(
-          child: Divider(color: Colors.black87),
-          padding: EdgeInsets.only(right: 10.0, left: 10.0),
-        ),
         Flexible(
             child: StreamBuilder(
           stream: getFutureOcorrencias().asStream(),
@@ -90,7 +72,7 @@ class HomeTab extends StatelessWidget {
                                   snapshot
                                       .data?.data[index].loteamentoProprietario,
                                   snapshot.data?.data[index].loteamentoContato,
-                                  snapshot.data?.data[index].imagem1,
+                                  //snapshot.data?.data[index].imagem1,
                                 )),
                       );
                     },
@@ -138,7 +120,7 @@ class HomeTab extends StatelessWidget {
                   'Encaminhamento do AI à 2ª. Promotoria de Justiça',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_04')
@@ -146,7 +128,7 @@ class HomeTab extends StatelessWidget {
                   'Encaminhamento do AI à 7ª. Promotoria de Justiça',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_05')
@@ -154,7 +136,7 @@ class HomeTab extends StatelessWidget {
                   'Encaminhamento do AI à Polícia Civil',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_06')
@@ -162,7 +144,7 @@ class HomeTab extends StatelessWidget {
                   'Encaminhamento do AI à Polícia Militar Ambiental',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_8')

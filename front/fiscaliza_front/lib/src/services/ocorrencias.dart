@@ -94,20 +94,20 @@ class OcorrenciasService {
 
       String jsonObject = """
         {
-          "user": "${novaOcorrencia.user}", 
           "categorias": "${novaOcorrencia.categorias}", 
+          "localizacao": "${novaOcorrencia.localizacao}",
           "nome_logradouro": "${novaOcorrencia.nomeLogradouro}", 
           "numero": "${novaOcorrencia.numero}", 
           "bairro": "${novaOcorrencia.bairro}", 
           "descricao": "${novaOcorrencia.descricao}", 
           "ponto_referencia": "${novaOcorrencia.pontoReferencia}", 
           "observacoes": "${novaOcorrencia.observacoes}", 
+          "infrator_identificado": "${novaOcorrencia.infrator_identificado}",
           ${descricaoInfrator}
           ${loteamentoArea}
-          ${loteamentoContato}
           ${loteamentoProp}
-          "localizacao": "${novaOcorrencia.localizacao}", 
-          "infrator_identificado": "${novaOcorrencia.infrator_identificado}"
+          ${loteamentoContato}
+          "user": "${novaOcorrencia.user}"
         }
       """;
       print(jsonObject);

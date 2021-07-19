@@ -1,7 +1,5 @@
-import 'package:fiscaliza_front/src/screens/camera_screen.dart';
 import 'package:fiscaliza_front/src/tiles/map_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
 import 'endereco_ocorrencia_screen.dart';
 import 'home_screen.dart';
 

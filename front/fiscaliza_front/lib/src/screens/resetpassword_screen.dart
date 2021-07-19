@@ -10,6 +10,9 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  int statusCode = 0;
+  bool _validate = false;
+  String _messageFieldEmail = '';
   final _emailController = TextEditingController();
   OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
@@ -47,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: _emailController,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(
@@ -60,8 +63,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   border: OutlineInputBorder(),
                   labelText: 'E-mail',
                   hintText: 'abc@gmail.com',
-                  hintStyle: TextStyle(color: Colors.white),
-                  prefixIcon: Icon(Icons.email, color: Colors.white),
+                  hintStyle: TextStyle(color: Colors.black),
+                  errorText: _validate ? _messageFieldEmail : null,
+                  prefixIcon: Icon(Icons.email, color: Colors.black),
                 ),
               ),
             ),
@@ -76,12 +80,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  print(_emailController.text);
-                  await ocorrenciasService.resetPassword(_emailController.text);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => SecurityCodeResetPassScreen()));
+                  setState(() {
+                    if (!_emailController.text.isEmpty) {
+                      _validate = true;
+                    } else {
+                      _messageFieldEmail = 'Digite um e-mail válido.';
+                      _validate = false;
+                    }
+                    _emailController.text.isEmpty
+                        ? _validate = true
+                        : _validate = false;
+                  });
+
+                  if (!_validate) {
+                    await ocorrenciasService
+                        .resetPassword(_emailController.text);
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SecurityCodeResetPassScreen()));
+                  }
                 },
                 child: Text(
                   'ENVIAR',

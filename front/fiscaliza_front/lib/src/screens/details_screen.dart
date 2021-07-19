@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
   final String? loteamentoArea;
   final String? loteamentoProprietario;
   final String? loteamentoContato;
-  final String? imagem1;
+  //final String? imagem1;
   //dynamic imagem2;
   //dynamic imagem3;
   //dynamic imagem4;
@@ -23,19 +23,20 @@ class DetailsScreen extends StatelessWidget {
   //dynamic imagem6;
 
   DetailsScreen(
-      this.id,
-      this.categorias,
-      this.andamento,
-      this.nomeLogradouro,
-      this.numero,
-      this.bairro,
-      this.descricao,
-      this.pontoReferencia,
-      this.observacoes,
-      this.loteamentoArea,
-      this.loteamentoProprietario,
-      this.loteamentoContato,
-      this.imagem1);
+    this.id,
+    this.categorias,
+    this.andamento,
+    this.nomeLogradouro,
+    this.numero,
+    this.bairro,
+    this.descricao,
+    this.pontoReferencia,
+    this.observacoes,
+    this.loteamentoArea,
+    this.loteamentoProprietario,
+    this.loteamentoContato,
+    //this.imagem1
+  );
 
   @override
   Widget build(BuildContext context) {

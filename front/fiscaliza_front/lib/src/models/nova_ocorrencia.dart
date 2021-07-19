@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 NovaOcorrencia novaOcorrenciaFromJson(String str) =>
@@ -46,31 +45,35 @@ class NovaOcorrencia {
         descricao: json["descricao"],
         pontoReferencia: json["ponto_referencia"],
         observacoes: json["observacoes"],
-        descricaoInfrator: json["descricao_infrator"],
-        loteamentoArea: json["loteamento_area"],
-        loteamentoProprietario: json["loteamento_proprietario"],
-        loteamentoContato: json["loteamento_contato"],
+        descricaoInfrator:
+            json["descricao_infrator"] == "" ? "" : json["descricao_infrator"],
+        loteamentoArea:
+            json["loteamento_area"] == "" ? "" : json["loteamento_area"],
+        loteamentoProprietario: json["loteamento_proprietario"] == ""
+            ? ""
+            : json["loteamento_proprietario"],
+        loteamentoContato:
+            json["loteamento_contato"] == "" ? "" : json["loteamento_contato"],
         localizacao: json["localizacao"],
         infrator_identificado: json["infrator_identificado"],
       );
 
   Map<String, dynamic> toJson() => {
-        "user": user,
-        "categorias": categorias,
-        "nome_logradouro": nomeLogradouro,
-        "numero": numero,
-        "bairro": bairro,
-        "descricao": descricao,
-        "ponto_referencia": pontoReferencia,
-        "observacoes": observacoes,
-        "descricao_infrator":
-            descricaoInfrator == null ? "" : descricaoInfrator,
-        "loteamento_area": loteamentoArea == null ? "" : loteamentoArea,
+        "user": user == "" ? "" : user,
+        "categorias": categorias == "" ? "" : categorias,
+        "nome_logradouro": nomeLogradouro == "" ? "" : nomeLogradouro,
+        "numero": numero == "" ? "" : numero,
+        "bairro": bairro == "" ? "" : bairro,
+        "descricao": descricao == "" ? "" : descricao,
+        "ponto_referencia": pontoReferencia == "" ? "" : pontoReferencia,
+        "observacoes": observacoes == "" ? "" : observacoes,
+        "descricao_infrator": descricaoInfrator == "" ? "" : descricaoInfrator,
+        "loteamento_area": loteamentoArea == "" ? "" : loteamentoArea,
         "loteamento_proprietario":
-            loteamentoProprietario == null ? "" : loteamentoProprietario,
-        "loteamento_contato":
-            loteamentoContato == null ? "" : loteamentoContato,
-        "localizacao": localizacao,
-        "infrator_identificado": infrator_identificado,
+            loteamentoProprietario == "" ? "" : loteamentoProprietario,
+        "loteamento_contato": loteamentoContato == "" ? "" : loteamentoContato,
+        "localizacao": localizacao == "" ? "" : localizacao,
+        "infrator_identificado":
+            infrator_identificado == "" ? "" : infrator_identificado,
       };
 }

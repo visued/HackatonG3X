@@ -8,7 +8,14 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  // Initially password is obscure
+  String _messageFieldEmail = '';
+  String _messageFieldCPF = '';
+  String _messageFieldPhone = '';
+  String _messageFieldName = '';
+  String _messageFieldPass = '';
+  String _messageFieldConfirmPass = '';
+  bool _validate = false;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _obscureTextCheck = true;
   bool pressed = true;
@@ -16,7 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _cpfController = TextEditingController();
-
+  var confirmPass;
   OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
   Widget build(BuildContext context) {
@@ -30,21 +37,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Expanded(
               child: ListView(padding: EdgeInsets.all(7.0), children: [
             TextFormField(
-                decoration: InputDecoration(
-              border: new OutlineInputBorder(
-                  borderSide: new BorderSide(color: Colors.teal)),
-              hintText: 'Nome Completo',
-              prefixIcon: Icon(Icons.account_box),
-            )),
+              decoration: InputDecoration(
+                border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.teal)),
+                hintText: 'Nome Completo',
+                prefixIcon: Icon(Icons.account_box),
+                errorText: _validate ? _messageFieldName : null,
+              ),
+            ),
             SizedBox(height: 16.0),
             TextFormField(
               controller: _cpfController,
               decoration: InputDecoration(
+                errorText: _validate ? _messageFieldCPF : null,
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
                 hintText: 'CPF',
                 prefixIcon: Icon(Icons.assignment_ind),
               ),
+              validator: (text) {
+                if (text!.isEmpty) {
+                  return 'CPF é obrigatório';
+                }
+              },
               keyboardType: TextInputType.phone,
             ),
             SizedBox(
@@ -55,8 +70,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
                 hintText: 'Celular',
+                errorText: _validate ? _messageFieldPhone : null,
                 prefixIcon: Icon(Icons.local_phone),
               ),
+              validator: (text) {
+                if (text!.isEmpty) {
+                  return 'Celular é obrigatório';
+                }
+              },
               keyboardType: TextInputType.phone,
             ),
             SizedBox(
@@ -69,6 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     borderSide: new BorderSide(color: Colors.teal)),
                 hintText: 'E-mail',
                 prefixIcon: Icon(Icons.markunread),
+                errorText: _validate ? _messageFieldEmail : null,
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -77,11 +99,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             new TextFormField(
                 controller: _passwordController,
+                key: _formKey,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Colors.teal)),
                     hintText: 'Senha',
                     prefixIcon: Icon(Icons.lock),
+                    errorText: _validate ? _messageFieldPass : null,
                     suffixIcon: IconButton(
                         icon: Padding(
                             padding: EdgeInsets.only(left: 4, right: 4, top: 0),
@@ -93,8 +117,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _obscureText = !_obscureText;
                           });
                         })),
-                validator: (val) =>
-                    val!.length < 6 ? 'Password too short.' : null,
                 onSaved: (val) => _password = val,
                 obscureText: _obscureText),
             SizedBox(
@@ -106,6 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         borderSide: new BorderSide(color: Colors.teal)),
                     hintText: 'Confirme sua senha',
                     prefixIcon: Icon(Icons.lock),
+                    errorText: _validate ? _messageFieldConfirmPass : null,
                     suffixIcon: IconButton(
                         icon: Padding(
                             padding: EdgeInsets.only(left: 4, right: 4, top: 0),
@@ -117,13 +140,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             _obscureTextCheck = !_obscureTextCheck;
                           });
                         })),
-                validator: (val) =>
-                    val!.length < 6 ? 'Password too short.' : null,
                 onSaved: (val) => _password = val,
                 obscureText: _obscureTextCheck),
             TextButton(
               child: Padding(
-                  padding: EdgeInsets.only(left: 120),
+                  padding: EdgeInsets.all(5),
                   child: Text(
                     'Por que precisamos dos dados?',
                     style: TextStyle(
@@ -150,13 +171,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xff0EB028))),
-                    onPressed: () async => {
-                      print('mandando'),
-                      await ocorrenciasService.register(_emailController.text,
-                          _passwordController.text, _cpfController.text),
-                      print('enviou?'),
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SecurityCodeRegisterScreen()))
+                    onPressed: () async {
+                      setState(() {
+                        if (!_emailController.text.isEmpty) {
+                          _validate = true;
+                        } else {
+                          _messageFieldEmail = 'Digite um e-mail válido.';
+                          _messageFieldCPF = 'Digite um CPF válido.';
+                          _messageFieldPhone = 'Digite um celular válido.';
+                          _messageFieldName = 'Digite um nome válido.';
+                          _messageFieldPass = 'Digite uma senha válida.';
+                          _messageFieldConfirmPass = 'Digite uma senha válida.';
+                          _validate = false;
+                        }
+                        _emailController.text.isEmpty
+                            ? _validate = true
+                            : _validate = false;
+                      });
+
+                      if (!_validate) {
+                        await ocorrenciasService.register(_emailController.text,
+                            _passwordController.text, _cpfController.text);
+
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => SecurityCodeRegisterScreen()));
+                      }
                     },
                   ),
                 )

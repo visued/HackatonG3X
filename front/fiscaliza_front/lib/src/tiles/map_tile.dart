@@ -11,16 +11,16 @@ class MapTile extends StatefulWidget {
 }
 
 class _MapTileState extends State<MapTile> {
-  Completer<GoogleMapController> _controller  = Completer();
+  Completer<GoogleMapController> _controller = Completer();
 
-    static final CameraPosition _initialCameraPosition = CameraPosition(
+  static final CameraPosition _initialCameraPosition = CameraPosition(
     target: LatLng(-20.53674728183014, -47.40053177518627),
     zoom: 15.5,
   );
 
   Marker _origin = Marker(
-      markerId: MarkerId("1"),         
-    );
+    markerId: MarkerId("1"),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,8 @@ class _MapTileState extends State<MapTile> {
           // mapType: MapType.hybrid,
           initialCameraPosition: _initialCameraPosition,
           onMapCreated: (GoogleMapController controller) {
-          _controller .complete(controller);
-        },
+            _controller.complete(controller);
+          },
           markers: {
             if (_origin != null) _origin,
           },
@@ -45,25 +45,21 @@ class _MapTileState extends State<MapTile> {
             child: const Icon(Icons.center_focus_strong)));
   }
 
-  void _addMarker(LatLng pos) {    
+  void _addMarker(LatLng pos) {
     setState(() {
-      
-      _origin=Marker(
+      _origin = Marker(
           markerId: const MarkerId('origin'),
           infoWindow: const InfoWindow(title: "origin"),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-          position: pos);    
-      
-      
+          position: pos);
     });
-  this.widget.addLatLg!("${pos.latitude} ${pos.longitude}"); 
-  
+    this.widget.addLatLg!("${pos.longitude} ${pos.latitude}");
   }
 
-  Future<void> _setCamera() async {    
+  Future<void> _setCamera() async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
+    controller
+        .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
   }
- 
 }
