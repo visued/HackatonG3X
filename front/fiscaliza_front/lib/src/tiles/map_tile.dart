@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapTile extends StatefulWidget {
+  final Function? addLatLg;
+  MapTile({this.addLatLg});
   @override
   _MapTileState createState() => _MapTileState();
 }
@@ -45,15 +47,20 @@ class _MapTileState extends State<MapTile> {
 
   void _addMarker(LatLng pos) {    
     setState(() {
-      print(pos);
+      
       _origin=Marker(
           markerId: const MarkerId('origin'),
           infoWindow: const InfoWindow(title: "origin"),
           icon:
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-          position: pos);        
+          position: pos);    
+      
+      
     });
+  this.widget.addLatLg!("${pos.latitude} ${pos.longitude}"); 
+  
   }
+
   Future<void> _setCamera() async {    
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
