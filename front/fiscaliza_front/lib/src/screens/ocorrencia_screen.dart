@@ -13,7 +13,7 @@ class OcorrenciaScreen extends StatefulWidget {
 
 class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
   String dropdownValue = 'Descarte irregular de resíduos';
-  TextEditingController controller_categoria = TextEditingController();
+  // TextEditingController controller_categoria = TextEditingController();
   TextEditingController controller_descricao_ocorrencia =
       TextEditingController();
   TextEditingController controller_descricao_infrator = TextEditingController();
@@ -22,11 +22,7 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
   TextEditingController controller_area_lote = TextEditingController();
   TextEditingController controller_contato_proprietario_lote =
       TextEditingController();
-  TextEditingController controller_nome_logradouro = TextEditingController();
-  TextEditingController controller_numero = TextEditingController();
-  TextEditingController controller_bairro = TextEditingController();
-  TextEditingController controller_ponto_referencia = TextEditingController();
-  TextEditingController controller_observacoes = TextEditingController();
+ 
   List images = [];
   int count = 0;
   late Datum ocorrencia;

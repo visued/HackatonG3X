@@ -22,6 +22,11 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
   FocusNode _focus = new FocusNode();
   @override
   Widget build(BuildContext context) {
+    TextEditingController controller_nome_logradouro = TextEditingController();
+    TextEditingController controller_numero = TextEditingController();
+    TextEditingController controller_bairro = TextEditingController();
+    TextEditingController controller_ponto_referencia = TextEditingController();
+    TextEditingController controller_observacoes = TextEditingController();
     return Scaffold(
       appBar: AppBar(title: Text('Endereço da ocorrência')),
       body: Column(
@@ -37,7 +42,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
               child: ListView(padding: EdgeInsets.all(7.0), children: [
                 Divider(),
                 TextFormField(
-                  focusNode: _focus,
+                  controller: controller_nome_logradouro,
                   validator: (text) {
                     if (text!.isEmpty) {
                       return 'Nome do logradouro é obrigatório';
@@ -47,9 +52,10 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
+                  controller: controller_numero,
                   validator: (text) {
                     if (text!.isEmpty) {
-                      return 'Nome do logradouro é obrigatório';
+                      return 'Número é obrigatório';
                     }
                   },
                   decoration: InputDecoration(hintText: 'Número'),
@@ -58,6 +64,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                   height: 16.0,
                 ),
                 TextFormField(
+                  controller: controller_bairro,
                   validator: (text) {
                     if (text!.isEmpty) {
                       return 'Bairro é obrigatório';
@@ -69,6 +76,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                   height: 16.0,
                 ),
                 TextFormField(
+                  controller: controller_ponto_referencia,
                   validator: (text) {
                     if (text!.isEmpty) {
                       return 'Ponto de referência é obrigatório';
@@ -80,9 +88,10 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                   height: 16.0,
                 ),
                 TextFormField(
+                  controller: controller_observacoes,
                     validator: (text) {
                       if (text!.isEmpty) {
-                        return 'Ponto de referência é obrigatório';
+                        return 'Observações são obrigatórias';
                       }
                     },
                     keyboardType: TextInputType.multiline,
