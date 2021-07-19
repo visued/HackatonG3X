@@ -1,7 +1,17 @@
 import 'package:fiscaliza_front/src/screens/securitycode_resetpass_screen.dart';
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  _ResetPasswordScreenState createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final _emailController = TextEditingController();
+  OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +46,7 @@ class ResetPasswordScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                controller: _emailController,
                 style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -65,8 +76,8 @@ class ResetPasswordScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6)),
               child: TextButton(
                 onPressed: () async {
-                  /* await authentication.login(
-                      emailController.text, passwordController.text); */
+                  print(_emailController.text);
+                  await ocorrenciasService.resetPassword(_emailController.text);
                   Navigator.push(
                       context,
                       MaterialPageRoute(

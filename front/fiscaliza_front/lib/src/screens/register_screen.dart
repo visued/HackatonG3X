@@ -13,9 +13,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureTextCheck = true;
   bool pressed = true;
   String? _password;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _cpfController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _cpfController = TextEditingController();
 
   OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             new TextFormField(
-              controller: _passwordController,
+                controller: _passwordController,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Colors.teal)),
@@ -123,9 +123,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 obscureText: _obscureTextCheck),
             TextButton(
               child: Padding(
-                  padding: EdgeInsets.only(left: 130),
+                  padding: EdgeInsets.only(left: 120),
                   child: Text(
-                    'Porque precisamos dos dados?',
+                    'Por que precisamos dos dados?',
                     style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 14,
@@ -145,14 +145,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 40,
                   width: 300,
                   child: ElevatedButton(
-                    child: Text('Criar seu cadastro',
+                    child: Text('Criar meu cadastro',
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xff0EB028))),
                     onPressed: () async => {
                       print('mandando'),
-                      await ocorrenciasService.register(_emailController.text, _passwordController.text, _cpfController.text),
+                      await ocorrenciasService.register(_emailController.text,
+                          _passwordController.text, _cpfController.text),
                       print('enviou?'),
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SecurityCodeRegisterScreen()))
@@ -178,7 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Porque precisamos dos dados?"),
+      title: Text("Por que precisamos dos dados?"),
       content: Text(
           "Por conta da nova Lei Geral de Proteção de Dados (Lei 13.709/2018) ou LGPD, que tem como objetivo reforçar a responsabilidade e a transparência no tratamento dos seus dados pessoais (nome completo, endereço, CPF, email, número de whatsapp), gostaríamos de pedir o seu consentimento para armazená-los e utilizá-los com toda segurança e privacidade. \n \nAo criar o seu cadastro você está concordando com os termos citados acima."),
       actions: [
