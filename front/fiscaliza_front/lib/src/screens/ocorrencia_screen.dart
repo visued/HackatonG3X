@@ -9,7 +9,18 @@ class OcorrenciaScreen extends StatefulWidget {
 }
 
 class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
-  String dropdownValue = 'Categoria';
+  String dropdownValue = 'Descarte irregular de resíduos';
+  TextEditingController controller_descricao_ocorrencia =
+      TextEditingController();
+  TextEditingController controller_descricao_infrator = TextEditingController();
+  TextEditingController controller_nome_proprietario_lote =
+      TextEditingController();
+  TextEditingController controller_area_lote = TextEditingController();
+  TextEditingController controller_contato_proprietario_lote =
+      TextEditingController();
+  List images = [];
+  int count = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
