@@ -86,18 +86,19 @@ class OcorrenciasService {
 
       if (novaOcorrencia.descricaoInfrator != "") {
         descricaoInfrator =
-            'descricao_infrator: ${novaOcorrencia.descricaoInfrator},';
+            '"descricao_infrator": "${novaOcorrencia.descricaoInfrator}",';
       }
       if (novaOcorrencia.loteamentoArea != "") {
-        loteamentoArea = 'loteamento_area: ${novaOcorrencia.loteamentoArea},';
+        loteamentoArea =
+            '"loteamento_area": "${novaOcorrencia.loteamentoArea}",';
       }
       if (novaOcorrencia.loteamentoContato != "") {
         loteamentoContato =
-            'loteamento_contato: ${novaOcorrencia.loteamentoContato},';
+            '"loteamento_contato": "${novaOcorrencia.loteamentoContato}",';
       }
       if (novaOcorrencia.loteamentoProprietario != "") {
         loteamentoProp =
-            'loteamento_proprietario: ${novaOcorrencia.loteamentoProprietario},';
+            '"loteamento_proprietario": "${novaOcorrencia.loteamentoProprietario}",';
       }
 
       String jsonObject = """

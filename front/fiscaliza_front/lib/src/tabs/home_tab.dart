@@ -3,6 +3,7 @@ import 'package:fiscaliza_front/src/screens/details_screen.dart';
 import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jiffy/jiffy.dart';
 
 class HomeTab extends StatelessWidget {
   OcorrenciasService ocorrencias = OcorrenciasService();
@@ -184,7 +185,8 @@ class HomeTab extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                          text: '${snapshot.id}',
+                          text:
+                              '${snapshot.id}/${Jiffy(snapshot.criado).format("yyyy")}',
                           style: TextStyle(fontWeight: FontWeight.normal)),
                     ],
                   ),
@@ -267,7 +269,24 @@ class HomeTab extends StatelessWidget {
                         fontWeight: FontWeight.bold, color: Colors.black),
                     children: [
                       TextSpan(
-                          text: '${snapshot.numero}',
+                          text:
+                              '${snapshot.numero_auto == "" ? 'Não disponível' : snapshot.numero_auto}',
+                          style: TextStyle(fontWeight: FontWeight.normal)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 14,
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'Criado em: ',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
+                    children: [
+                      TextSpan(
+                          text:
+                              '${Jiffy(snapshot.criado).format("dd-MM-yyyy HH:mm:ss")}',
                           style: TextStyle(fontWeight: FontWeight.normal)),
                     ],
                   ),

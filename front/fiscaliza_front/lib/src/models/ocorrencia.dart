@@ -31,6 +31,7 @@ class Datum {
     required this.loteamentoArea,
     required this.loteamentoProprietario,
     required this.loteamentoContato,
+    required this.numero_auto,
 /*     required this.imagem1,
     required this.imagem2,
     required this.imagem3,
@@ -54,6 +55,7 @@ class Datum {
   String loteamentoArea;
   String loteamentoProprietario;
   String loteamentoContato;
+  String numero_auto;
 /*   String imagem1;
   dynamic imagem2;
   dynamic imagem3;
@@ -78,6 +80,7 @@ class Datum {
         loteamentoArea: json["loteamento_area"],
         loteamentoProprietario: json["loteamento_proprietario"],
         loteamentoContato: json["loteamento_contato"],
+        numero_auto: json["numero_auto"],
         /*   imagem1: json["imagem_1"],
         imagem2: json["imagem_2"],
         imagem3: json["imagem_3"],
@@ -103,6 +106,7 @@ class Datum {
         "loteamento_area": loteamentoArea,
         "loteamento_proprietario": loteamentoProprietario,
         "loteamento_contato": loteamentoContato,
+        "numero_auto": numero_auto,
         /*    "imagem_1": imagem1,
         "imagem_2": imagem2,
         "imagem_3": imagem3,
