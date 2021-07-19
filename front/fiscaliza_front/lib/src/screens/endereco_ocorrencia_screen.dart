@@ -28,6 +28,10 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
         children: <Widget>[
           Flexible(
               flex: 1, child: Container(color: Colors.blue, child: MapTile())),
+          Text(
+            "Aperte por 3s no mapa para indicar o local da ocorrência",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           Flexible(
               flex: 1,
               child: ListView(padding: EdgeInsets.all(7.0), children: [
