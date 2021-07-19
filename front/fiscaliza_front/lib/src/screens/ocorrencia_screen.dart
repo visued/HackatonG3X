@@ -6,7 +6,6 @@ import 'endereco_ocorrencia_screen.dart';
 import 'home_screen.dart';
 
 class OcorrenciaScreen extends StatefulWidget {
-  
   @override
   State<OcorrenciaScreen> createState() => _OcorrenciaScreenState();
 }
@@ -16,14 +15,18 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
   String dropdownValue = 'Categoria';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         appBar: AppBar(
           title: Text('Nova ocorrência'),
         ),
         body: Column(children: [
           Flexible(
-              flex: 1, child: Container(color: Colors.blue, child: MapTile(addLatLg: addLatLg,))),
+              flex: 1,
+              child: Container(
+                  color: Colors.blue,
+                  child: MapTile(
+                    addLatLg: addLatLg,
+                  ))),
           Text(
             "Aperte por 3s no mapa para indicar o local da ocorrência",
             style: TextStyle(
@@ -40,9 +43,10 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                       backgroundColor: MaterialStateProperty.all(
                           Theme.of(context).primaryColor)),
                   onPressed: () => {
-                    print(pos),
+                    //print(pos),
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EnderecoOcorrenciaScreen(latlg: pos)))
+                        builder: (context) =>
+                            EnderecoOcorrenciaScreen(latlg: pos)))
                   },
                 ),
               )
@@ -238,11 +242,14 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
         // ])
         );
   }
-  addLatLg(String pos){
+
+  addLatLg(String pos) {
     setState(() {
-      this.pos=pos;
+      this.pos = pos;
+      //print(this.pos);
     });
   }
+
   showAlertDialog(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(

@@ -30,6 +30,7 @@ dependencies:
   camera: ^0.8.1+5
   google_maps_flutter: ^2.0.6
   flutter_polyline_points: ^0.2.6
+  jiffy: ^4.1.0  
   
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,8 @@
+import 'package:fiscaliza_front/src/models/nova_ocorrencia.dart';
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:fiscaliza_front/src/tiles/map_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'camera_screen.dart';
 import 'home_screen.dart';
 import 'package:camera/camera.dart';
@@ -7,7 +10,7 @@ import 'package:camera/camera.dart';
 class EnderecoOcorrenciaScreen extends StatefulWidget {
   final String? latlg;
   EnderecoOcorrenciaScreen({this.latlg});
-  @override  
+  @override
   _EnderecoOcorrenciaScreenState createState() =>
       _EnderecoOcorrenciaScreenState();
 }
@@ -24,6 +27,20 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
     TextEditingController controller_bairro = TextEditingController();
     TextEditingController controller_ponto_referencia = TextEditingController();
     TextEditingController controller_observacoes = TextEditingController();
+    TextEditingController controller_lote_area = TextEditingController();
+    TextEditingController controller_lote_proprietario =
+        TextEditingController();
+    TextEditingController controller_lote_contato = TextEditingController();
+    TextEditingController controller_descricao = TextEditingController();
+    TextEditingController controller_descricao_infrator =
+        TextEditingController();
+
+    OcorrenciasService ocorrenciasService = OcorrenciasService();
+
+    final storage = FlutterSecureStorage();
+    String? userId;
+    NovaOcorrencia novaOcorrencia;
+
     return Scaffold(
       appBar: AppBar(title: Text('Endereço da ocorrência')),
       body: Column(
@@ -98,7 +115,9 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10.0))))),
-                SizedBox(height: 16.0,),
+                SizedBox(
+                  height: 16.0,
+                ),
                 DropdownButton<String>(
                   isExpanded: true,
                   value: dropdownValue,
@@ -135,6 +154,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         dropdownValue == 'Loteamento irregular' ? true : false,
                     child: Column(children: [
                       TextFormField(
+                          controller: controller_lote_proprietario,
                           validator: (text) {
                             if (text!.isEmpty &&
                                 dropdownValue == 'Loteamento irregular') {
@@ -151,6 +171,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         height: 16.0,
                       ),
                       TextFormField(
+                          controller: controller_lote_area,
                           decoration: InputDecoration(
                               hintText: 'Área da Propriedade em m²',
                               border: OutlineInputBorder(
@@ -161,6 +182,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         height: 16.0,
                       ),
                       TextFormField(
+                          controller: controller_lote_proprietario,
                           validator: (text) {
                             if (text!.isEmpty &&
                                 dropdownValue == 'Loteamento irregular') {
@@ -182,6 +204,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 TextFormField(
+                    controller: controller_descricao,
                     validator: (text) {
                       if (text!.isEmpty) {
                         return 'Descrição da ocorrência é obrigatório';
@@ -210,6 +233,7 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                                 fontSize: 16.0, fontWeight: FontWeight.bold),
                           ),
                           TextFormField(
+                              controller: controller_descricao_infrator,
                               keyboardType: TextInputType.multiline,
                               maxLines: 5,
                               decoration: InputDecoration(
@@ -252,7 +276,33 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Theme.of(context).primaryColor)),
-                        onPressed: () => {
+                        onPressed: () async => {
+                          userId = await storage.read(key: 'id'),
+                          novaOcorrencia = NovaOcorrencia(
+                              user: userId.toString(),
+                              categorias: handleDropDown(dropdownValue),
+                              nomeLogradouro: controller_nome_logradouro.text,
+                              numero: controller_numero.text,
+                              pontoReferencia: controller_ponto_referencia.text,
+                              observacoes: controller_observacoes.text,
+                              descricao: controller_descricao.text,
+                              localizacao:
+                                  'POINT(${this.widget.latlg.toString()})',
+                              infrator_identificado: false,
+                              bairro: controller_bairro.text),
+                          if (controller_descricao_infrator.text != null)
+                            novaOcorrencia.descricaoInfrator =
+                                controller_descricao_infrator.text,
+                          if (controller_lote_area.text != null)
+                            novaOcorrencia.loteamentoArea =
+                                controller_lote_area.text,
+                          if (controller_lote_proprietario.text != null)
+                            novaOcorrencia.loteamentoProprietario =
+                                controller_lote_proprietario.text,
+                          if (controller_bairro.text != null)
+                            novaOcorrencia.loteamentoContato =
+                                controller_lote_contato.text,
+                          ocorrenciasService.novaOcorrencia(novaOcorrencia),
                           showAlertDialog(context)
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => EnderecoOcorrenciaScreen()))
@@ -265,6 +315,20 @@ class _EnderecoOcorrenciaScreenState extends State<EnderecoOcorrenciaScreen> {
         ],
       ),
     );
+  }
+
+  handleDropDown(String drop) {
+    if (drop == 'Descarte irregular de resíduos')
+      return 'descarte';
+    else if (drop == 'Desmatamento')
+      return 'desmatamento';
+    else if (drop == 'Loteamento irregular')
+      return 'loteamento_irregular';
+    else if (drop == 'Uso indevido de área pública ')
+      return 'uso_area_publica';
+    else if (drop == 'Maus tratos contra animais')
+      return 'maltrato_animais';
+    else if (drop == 'Abandono de animais') return 'abandono_animais';
   }
 
   showAlertDialog(BuildContext context) {

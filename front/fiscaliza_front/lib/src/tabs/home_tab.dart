@@ -25,14 +25,14 @@ class HomeTab extends StatelessWidget {
                 suffixIcon: IconButton(
                   onPressed: () {
                     //chamar função de pesquisa
-                  },                  
+                  },
                   icon: Icon(Icons.search),
                 ),
               ),
             )),
         Container(
           child: Divider(color: Colors.black87),
-          padding: EdgeInsets.only(right: 10.0,left: 10.0),
+          padding: EdgeInsets.only(right: 10.0, left: 10.0),
         ),
         Flexible(
             child: StreamBuilder(

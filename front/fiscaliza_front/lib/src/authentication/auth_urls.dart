@@ -7,4 +7,6 @@ class AuthUrls {
 
   static String reset =
       'https://fiscalizahackton.herokuapp.com/auth/request-reset-email';
+  static String nova_ocorrencia =
+      'https://fiscalizahackton.herokuapp.com/api/v1/ocorrencia/';
 }

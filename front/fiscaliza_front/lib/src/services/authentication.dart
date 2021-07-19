@@ -21,6 +21,7 @@ class Authentication {
           String email = auth_token.data.email;
           String cpf = auth_token.data.cpf;
           String log_name = auth_token.data.long_name;
+          String id = auth_token.data.id.toString();
           Map<String, dynamic> tokens =
               jsonDecode(auth_token.data.tokens.replaceAll("'", "\""));
           print(tokens['refresh']);
@@ -32,6 +33,7 @@ class Authentication {
           await storage.write(key: 'email', value: email);
           await storage.write(key: 'longName', value: log_name);
           await storage.write(key: 'cpf', value: cpf);
+          await storage.write(key: 'id', value: id);
           return [true, response.statusCode];
         } else {
           return [false, response.statusCode];
