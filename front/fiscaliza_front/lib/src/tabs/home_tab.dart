@@ -104,7 +104,7 @@ class HomeTab extends StatelessWidget {
                   'Registro do número da Ocorrência',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_02')
@@ -112,7 +112,7 @@ class HomeTab extends StatelessWidget {
                   'Registro do Auto de Infração - AI',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_03')
@@ -152,7 +152,7 @@ class HomeTab extends StatelessWidget {
                   'Encaminhamento do AI à CETESB',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
               if (snapshot.andamento == 'andamento_09') Text('Não Procede'),
@@ -161,7 +161,7 @@ class HomeTab extends StatelessWidget {
                   'Andamento não disponível.',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 12.5,
                       fontWeight: FontWeight.bold),
                 ),
             ],
