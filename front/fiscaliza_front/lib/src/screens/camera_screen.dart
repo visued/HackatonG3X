@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:fiscaliza_front/src/screens/home_screen.dart';
 import 'package:fiscaliza_front/src/screens/ocorrencia_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // Future<void> main() async {
 //   // Ensure that plugin services are initialized so that `availableCameras()`
@@ -28,13 +29,13 @@ import 'package:flutter/material.dart';
 //   );
 // }
 // A screen that allows users to take a picture using a given camera.
-
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
-
-  const CameraScreen({
+  final Function addImage;
+  CameraScreen({
     Key? key,
     required this.camera,
+    required this.addImage,
   }) : super(key: key);
 
   @override
@@ -108,6 +109,7 @@ class CameraScreenState extends State<CameraScreen> {
                   // Pass the automatically generated path to
                   // the DisplayPictureScreen widget.
                   imagePath: image.path,
+                  addImage: this.widget.addImage,
                 ),
               ),
             );
@@ -122,15 +124,23 @@ class CameraScreenState extends State<CameraScreen> {
   }
 }
 
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
+class DisplayPictureScreen extends StatefulWidget {
   final String imagePath;
-
-  const DisplayPictureScreen({Key? key, required this.imagePath})
+  final Function addImage;
+  const DisplayPictureScreen(
+      {Key? key, required this.imagePath, required this.addImage})
       : super(key: key);
+  @override
+  _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
+}
+
+class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+  final storage = new FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
+    String? imagens;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Foto da infração')),
       // The image is stored as a file on the device. Use the `Image.file`
@@ -139,7 +149,7 @@ class DisplayPictureScreen extends StatelessWidget {
           padding: EdgeInsets.all(5.0),
           color: Theme.of(context).primaryColor,
           child: Column(children: [
-            Expanded(child: Image.file(File(imagePath))),
+            Expanded(child: Image.file(File(this.widget.imagePath))),
             Row(
               children: [
                 Expanded(
@@ -150,10 +160,11 @@ class DisplayPictureScreen extends StatelessWidget {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.grey)),
-                    onPressed: ()  {
-                      Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (c) => HomeScreen()),
-                  (route) => false);           
+                    onPressed: () {
+                      Navigator.of(context).pop(this.widget.imagePath != null
+                          ? this.widget.imagePath
+                          : null);
+                      print(this.widget.imagePath);
                     },
                   ),
                 )),
@@ -168,9 +179,15 @@ class DisplayPictureScreen extends StatelessWidget {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             Theme.of(context).highlightColor)),
-                    onPressed: () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => OcorrenciaScreen()))
+                    onPressed: () async => {
+                      await storage.write(
+                          key: 'imagem', value: this.widget.imagePath),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => OcorrenciaScreen(
+                                  image: this.widget.imagePath,
+                                )),
+                      )
                     },
                   ),
                 )),
@@ -180,3 +197,30 @@ class DisplayPictureScreen extends StatelessWidget {
     );
   }
 }
+
+class _ItemImage {
+  _ItemImage(this.key, this.value);
+
+  final String key;
+  final String value;
+}
+// A widget that displays the picture taken by the user.
+// class DisplayPictureScreen extends StatefulWidget {
+//   final String imagePath;
+//   final List images;
+
+//   const DisplayPictureScreen(
+//       {Key? key, required this.imagePath, required this.images})
+//       : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+
+// @override
+// State<StatefulWidget> createState() {
+//   // TODO: implement createState
+//   throw UnimplementedError();
+// }
+// }

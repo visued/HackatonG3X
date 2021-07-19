@@ -11,8 +11,10 @@ class ButtonOcorrencia extends StatelessWidget {
         color: Colors.white,
       ),
       onPressed: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => OcorrenciaScreen()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => OcorrenciaScreen(
+                  image: '',
+                )));
       },
       backgroundColor: Theme.of(context).primaryColor,
     );
