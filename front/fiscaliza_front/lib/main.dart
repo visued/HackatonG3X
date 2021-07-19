@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Flutter's Clothing",
+      title: "Hackaton G3X",
       theme: ThemeData(
           primarySwatch: Colors.green,
           primaryColor: Color(0xff020435),

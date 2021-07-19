@@ -1,5 +1,4 @@
 import 'package:fiscaliza_front/src/screens/help_screen.dart';
-import 'package:fiscaliza_front/src/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(HelpTab());
@@ -10,17 +9,6 @@ class HelpTab extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            /* appBar: AppBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              title: Text('Ajuda'),
-               leading: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomeScreen()));
-                },
-                icon: Icon(Icons.arrow_back),
-              ),
-            ), */
             body: GridView.count(
           crossAxisCount: 2,
           children: <Widget>[

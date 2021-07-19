@@ -2,6 +2,7 @@ import 'package:fiscaliza_front/src/models/ocorrencia.dart';
 import 'package:fiscaliza_front/src/screens/details_screen.dart';
 import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomeTab extends StatelessWidget {
   OcorrenciasService ocorrencias = OcorrenciasService();
@@ -11,72 +12,98 @@ class HomeTab extends StatelessWidget {
   }
 
   buildContainer() {
+    final storage = FlutterSecureStorage();
     return Container(
-        child: StreamBuilder(
-      stream: getFutureOcorrencias().asStream(),
-      builder: (BuildContext context, AsyncSnapshot<Ocorrencia> snapshot) {
-        if (snapshot.data?.data.isNotEmpty ?? false) {
-          return ListView.builder(
-            padding: EdgeInsets.all(7.0),
-            itemCount: snapshot.data?.data.length ?? 0,
-            itemBuilder: (BuildContext context, index) {
-              return InkWell(
-                child: Card(
-                  shadowColor: Colors.black,
-                  child: Container(
-                    width: 300,
-                    padding: EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        if (snapshot.data?.data[index].categorias == 'descarte')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                        if (snapshot.data?.data[index].categorias ==
-                            'desmatamento')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                        if (snapshot.data?.data[index].categorias ==
-                            'loteamento_irregular')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                        if (snapshot.data?.data[index].categorias ==
-                            'uso_area_publica')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                        if (snapshot.data?.data[index].categorias ==
-                            'maltrato_animais')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                        if (snapshot.data?.data[index].categorias ==
-                            'abandono_animais')
-                          cardOcorrencia(snapshot.data?.data[index]),
-                      ],
-                    ),
-                  ),
+        child: Column(
+      children: [
+        Container(
+            padding: EdgeInsets.all(5.0),
+            child: TextField(
+              // controller: _controller,
+              decoration: InputDecoration(
+                hintText: 'Pesquise sua ocorrência',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    //chamar função de pesquisa
+                  },                  
+                  icon: Icon(Icons.search),
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => DetailsScreen(
-                              snapshot.data?.data[index].id,
-                              snapshot.data?.data[index].categorias,
-                              snapshot.data?.data[index].andamento,
-                              snapshot.data?.data[index].nomeLogradouro,
-                              snapshot.data?.data[index].numero,
-                              snapshot.data?.data[index].bairro,
-                              snapshot.data?.data[index].descricao,
-                              snapshot.data?.data[index].pontoReferencia,
-                              snapshot.data?.data[index].observacoes,
-                              snapshot.data?.data[index].loteamentoArea,
-                              snapshot.data?.data[index].loteamentoProprietario,
-                              snapshot.data?.data[index].loteamentoContato,
-                              snapshot.data?.data[index].imagem1,
-                            )),
+              ),
+            )),
+        Container(
+          child: Divider(color: Colors.black87),
+          padding: EdgeInsets.only(right: 10.0,left: 10.0),
+        ),
+        Flexible(
+            child: StreamBuilder(
+          stream: getFutureOcorrencias().asStream(),
+          builder: (BuildContext context, AsyncSnapshot<Ocorrencia> snapshot) {
+            if (snapshot.data?.data.isNotEmpty ?? false) {
+              return ListView.builder(
+                padding: EdgeInsets.all(7.0),
+                itemCount: snapshot.data?.data.length ?? 0,
+                itemBuilder: (BuildContext context, index) {
+                  return InkWell(
+                    child: Card(
+                      shadowColor: Colors.black,
+                      child: Container(
+                        width: 300,
+                        padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            if (snapshot.data?.data[index].categorias ==
+                                'descarte')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                            if (snapshot.data?.data[index].categorias ==
+                                'desmatamento')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                            if (snapshot.data?.data[index].categorias ==
+                                'loteamento_irregular')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                            if (snapshot.data?.data[index].categorias ==
+                                'uso_area_publica')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                            if (snapshot.data?.data[index].categorias ==
+                                'maltrato_animais')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                            if (snapshot.data?.data[index].categorias ==
+                                'abandono_animais')
+                              cardOcorrencia(snapshot.data?.data[index]),
+                          ],
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => DetailsScreen(
+                                  snapshot.data?.data[index].id,
+                                  snapshot.data?.data[index].categorias,
+                                  snapshot.data?.data[index].andamento,
+                                  snapshot.data?.data[index].nomeLogradouro,
+                                  snapshot.data?.data[index].numero,
+                                  snapshot.data?.data[index].bairro,
+                                  snapshot.data?.data[index].descricao,
+                                  snapshot.data?.data[index].pontoReferencia,
+                                  snapshot.data?.data[index].observacoes,
+                                  snapshot.data?.data[index].loteamentoArea,
+                                  snapshot
+                                      .data?.data[index].loteamentoProprietario,
+                                  snapshot.data?.data[index].loteamentoContato,
+                                  snapshot.data?.data[index].imagem1,
+                                )),
+                      );
+                    },
                   );
                 },
               );
-            },
-          );
-        } else {
-          return Text(
-              'Você ainda não possui ocorrências registradas, toque no botão (+) para inserir uma nova.');
-        }
-      },
+            } else {
+              return Text(
+                  'Você ainda não possui ocorrências registradas, toque no botão (+) para inserir uma nova.');
+            }
+          },
+        ))
+      ],
     ));
   }
 

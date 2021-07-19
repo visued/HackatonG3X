@@ -1,4 +1,5 @@
 import 'package:fiscaliza_front/src/screens/securitycode_register_screen.dart';
+import 'package:fiscaliza_front/src/services/ocorrencias.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,11 +13,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscureTextCheck = true;
   bool pressed = true;
   String? _password;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _cpfController = TextEditingController();
 
+  OcorrenciasService ocorrenciasService = OcorrenciasService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Novo Cadastro')),
+      appBar: AppBar(title: Text('Novo cadastro')),
       body: Column(
         children: <Widget>[
           SizedBox(
@@ -33,12 +38,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             )),
             SizedBox(height: 16.0),
             TextFormField(
-                decoration: InputDecoration(
-              border: new OutlineInputBorder(
-                  borderSide: new BorderSide(color: Colors.teal)),
-              hintText: 'CPF',
-              prefixIcon: Icon(Icons.assignment_ind),
-            )),
+              controller: _cpfController,
+              decoration: InputDecoration(
+                border: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.teal)),
+                hintText: 'CPF',
+                prefixIcon: Icon(Icons.assignment_ind),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
             SizedBox(
               height: 16.0,
             ),
@@ -55,6 +63,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             TextFormField(
+              controller: _emailController,
               decoration: InputDecoration(
                 border: new OutlineInputBorder(
                     borderSide: new BorderSide(color: Colors.teal)),
@@ -67,6 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               height: 16.0,
             ),
             new TextFormField(
+                controller: _passwordController,
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(color: Colors.teal)),
@@ -111,6 +121,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     val!.length < 6 ? 'Password too short.' : null,
                 onSaved: (val) => _password = val,
                 obscureText: _obscureTextCheck),
+            TextButton(
+              child: Padding(
+                  padding: EdgeInsets.only(left: 120),
+                  child: Text(
+                    'Por que precisamos dos dados?',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 14,
+                        decoration: TextDecoration.underline),
+                  )),
+              onPressed: () {
+                showAlertDialog(context);
+              },
+            ),
             SizedBox(
               height: 16.0,
             ),
@@ -121,12 +145,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 40,
                   width: 300,
                   child: ElevatedButton(
-                    child: Text('Criar seu cadastro',
+                    child: Text('Criar meu cadastro',
                         style: TextStyle(color: Colors.white, fontSize: 20)),
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(0xff0EB028))),
-                    onPressed: () => {
+                    onPressed: () async => {
+                      print('mandando'),
+                      await ocorrenciasService.register(_emailController.text,
+                          _passwordController.text, _cpfController.text),
+                      print('enviou?'),
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SecurityCodeRegisterScreen()))
                     },
@@ -137,6 +165,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ])),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.of(context).pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Por que precisamos dos dados?"),
+      content: Text(
+          "Por conta da nova Lei Geral de Proteção de Dados (Lei 13.709/2018) ou LGPD, que tem como objetivo reforçar a responsabilidade e a transparência no tratamento dos seus dados pessoais (nome completo, endereço, CPF, email, número de whatsapp), gostaríamos de pedir o seu consentimento para armazená-los e utilizá-los com toda segurança e privacidade. \n \nAo criar o seu cadastro você está concordando com os termos citados acima."),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

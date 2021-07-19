@@ -31,11 +31,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // A screen that allows users to take a picture using a given camera.
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
-  final Function addImage;
   CameraScreen({
     Key? key,
     required this.camera,
-    required this.addImage,
   }) : super(key: key);
 
   @override

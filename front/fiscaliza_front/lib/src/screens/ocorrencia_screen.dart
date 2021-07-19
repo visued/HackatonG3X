@@ -36,14 +36,6 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Nova ocorrência'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.help_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () {})
-          ],
         ),
         body: Column(children: [
           Expanded(
@@ -108,6 +100,12 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                     ),
                     TextFormField(
                         controller: controller_contato_proprietario_lote,
+                        validator: (text) {
+                          if (text!.isEmpty &&
+                              dropdownValue == 'Loteamento irregular') {
+                            return 'Contato do proprietário é obrigatório';
+                          }
+                        },
                         decoration: InputDecoration(
                             hintText: 'Contato do proprietário',
                             border: OutlineInputBorder(
@@ -125,6 +123,17 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
                 ),
                 TextFormField(
                   controller: controller_descricao_ocorrencia,
+                ),
+                Text(
+                  "Descrição do Ocorrência:",
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+                TextFormField(
+                  validator: (text) {
+                    if (text!.isEmpty) {
+                      return 'Descrição da ocorrência é obrigatório';
+                    }
+                  },
                   keyboardType: TextInputType.multiline,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -173,52 +182,61 @@ class _OcorrenciaScreenState extends State<OcorrenciaScreen> {
           ),
           Container(
             padding: EdgeInsets.all(7.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.camera_alt, size: 16),
-                      label: Text('INSERIR FOTO'),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Theme.of(context).highlightColor)),
-                      onPressed: () async {
-                        WidgetsFlutterBinding.ensureInitialized();
-                        final cameras = await availableCameras();
-                        final String? filePath =
-                            await Navigator.of(context).push(MaterialPageRoute(
+            child: Row(children: [
+              Container(
+                padding: EdgeInsets.all(7.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        child: ElevatedButton.icon(
+                          icon: Icon(Icons.camera_alt, size: 16),
+                          label: Text('INSERIR FOTO'),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).highlightColor)),
+                          onPressed: () async {
+                            WidgetsFlutterBinding.ensureInitialized();
+                            final cameras = await availableCameras();
+                            final String? filePath =
+                                await Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (context) => CameraScreen(
-                                      camera: cameras.first,
-                                      addImage: this.addImage,
-                                    )));
-                        print('está passando aqui..');
-                        print(filePath);
-                      },
+                                  camera: cameras.first,
+                                ),
+                              ),
+                            );
+                            print('está passando aqui..');
+                            print(filePath);
+                          },
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 30.0,
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: ElevatedButton.icon(
+                          icon: Text('PRÓXIMO'),
+                          label: Icon(Icons.arrow_forward, size: 16),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          onPressed: () => {
+                            print(this.images),
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    EnderecoOcorrenciaScreen()))
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 30.0,
-                ),
-                Expanded(
-                    child: Container(
-                  child: ElevatedButton.icon(
-                    icon: Text('PRÓXIMO'),
-                    label: Icon(Icons.arrow_forward, size: 16),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor)),
-                    onPressed: () => {
-                      print(this.images),
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EnderecoOcorrenciaScreen()))
-                    },
-                  ),
-                )),
-              ],
-            ),
-          ),
+              ),
+            ]),
+          )
         ]));
   }
 
